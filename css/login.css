@@ -1,0 +1,74 @@
+form{
+    display: flex;
+    flex-direction: column;
+    input{
+        width: 100%;
+        max-width: 280px;
+        font-size: 1.3em;
+        border-radius: 0.6em;
+        padding: 12px 20px;
+        border-color: #1B1B1B;
+        border: 2px solid;
+        margin: 8px 0;
+        box-sizing: border-box;
+        outline: none;
+    }
+}
+
+button, input[type=submit] {
+    background-color: #1F8A70;
+    color: #E5E5E5;
+    border: none;
+    border-radius: 0.6em;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+button:hover, input[type=submit]:hover {
+    background-color: #3BAF8E;
+}
+
+.login {
+    min-height: 220px;
+}
+
+.signup {
+    min-height: 300px;
+}
+
+h3 {
+    text-align: center;
+    color: white;
+    font-size: medium;
+    margin-top: 5px;
+    span {
+        color: lightblue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.not_valid{
+    display: flex;
+    text-align: left;
+    margin: 0;
+    padding: 2px; /* Adds slight padding to prevent alignment shift */
+    font-size: 0.9em;
+    width: 100%;
+    max-width: 280px; /* Ensures the error message doesn't exceed the width of the form */
+    color: red;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* Ensures long words wrap within the container */
+    box-sizing: border-box;
+}
+
+.content-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
