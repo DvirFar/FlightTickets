@@ -1,8 +1,13 @@
 const templates = document.querySelectorAll('template');
 
-function showContent(page) {
-    document.body.innerHTML = '';
-    document.body.appendChild(templates[page].content.cloneNode(true));
+function selectTemplate(page) {
+    return templates.find(template => template.id == page );
 }
 
-showContent(0);
+function showContent(page) {
+    document.body.innerHTML = '';
+    const template = selectTemplate(page);
+    document.body.appendChild(template.content.cloneNode(true));
+}
+
+showContent("login-template");

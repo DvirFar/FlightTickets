@@ -13,78 +13,95 @@
     <script src="js/game.js" defer></script>
 </head>
 <body>
-        <template>
-            <div class="content-container">
-                <div class="login" id="login">
-                    <form id="loginForm" method="get" autocomplete="on">
-                        <input type="text" id="usernameL" name="username" placeholder="username" autocomplete="name" required>
-                        <p class="not_valid" id="not_validL"></p>
-                        <input type="password" id="passwordL" name="password" placeholder="password" autocomplete="current-password" required>
-                        <input type="submit" value="Login">
-                    </form>
-                    <h3>Don't have an account? <span id="SwitchToSign">Sign-up</span> now!</h3>
-                </div>
-            </div>
-            <script>
-                document.getElementById('loginForm').addEventListener('submit', login);
-                
-                loginButton = document.body.querySelector('#SwitchToSign');
-                function clickS() {
-                    document.getElementById('loginForm').removeEventListener('submit', login);
-                    loginButton.removeEventListener('click', clickS);
-                    showContent(1); 
-                }
-                loginButton.addEventListener('click', clickS);
-            </script>
-        </template>
+    <template id="navbar-template">
+        <div id="app-icon"></div>
+        <div id="user-icon"></div>
+    </template>
 
-        <template>
-            <div class="content-container">
-                <div class="signup" id="signup">
-                    <form id="signupForm" method="post" autocomplete="on">
-                        <input type="text" id="usernameS" name="username" placeholder="username" autocomplete="name" required>
-                        <p class="not_valid" id="not_valid_usernameS"></p>
-                        <input type="email" id="emailS" name="email" placeholder="example@example.com" autocomplete="email" required>
-                        <p class="not_valid" id="not_valid_emailS"></p>
-                        <input type="password" id="passwordS" name="password" placeholder="password" autocomplete="current-password" required>
-                        <p class="not_valid" id="not_valid_passwordS"></p>
-                        <input type="submit" value="Sign-up">
-                    </form>
-                    <h3>Have an account? <span id="SwitchToLog">Log-in</span> now!</h3> 
-                </div>
+    <template id="login-template">
+        <div class="content-container">
+            <div class="login" id="login">
+                <form id="loginForm" method="get" autocomplete="on">
+                    <input type="text" id="usernameL" name="username" placeholder="username" autocomplete="name" required>
+                    <p class="not_valid" id="not_validL"></p>
+                    <input type="password" id="passwordL" name="password" placeholder="password" autocomplete="current-password" required>
+                    <input type="submit" value="Login">
+                </form>
+                <h3>Don't have an account? <span id="SwitchToSign">Sign-up</span> now!</h3>
             </div>
-            <script>
-                document.getElementById('signupForm').addEventListener('submit', signup);
+        </div>
+        <script>
+            document.getElementById('loginForm').addEventListener('submit', login);
+            
+            loginButton = document.body.querySelector('#SwitchToSign');
+            function clickS() {
+                document.getElementById('loginForm').removeEventListener('submit', login);
+                loginButton.removeEventListener('click', clickS);
+                showContent("signup-template"); 
+            }
+            loginButton.addEventListener('click', clickS);
+        </script>
+    </template>
 
-                signupButton = document.body.querySelector('#SwitchToLog');
-                function clickL() {
-                    document.getElementById('signupForm').removeEventListener('submit', signup);
-                    signupButton.removeEventListener('click', clickL);
-                    showContent(0); 
-                }
-                signupButton.addEventListener('click', clickL);
-            </script>
-        </template>
-
-        <template>
-            <div id="logout">Logout</div>
-            <div id="game">
-                <div id="game-area">
-                    <div id="player"></div>
-                    <div id="score">Score: 0</div>
-                    <div id="obstacles"></div>
-                </div>
-                <div id="restart-game">Start Game</div>
+    <template id="signup-template">
+        <div class="content-container">
+            <div class="signup" id="signup">
+                <form id="signupForm" method="post" autocomplete="on">
+                    <input type="text" id="usernameS" name="username" placeholder="username" autocomplete="name" required>
+                    <p class="not_valid" id="not_valid_usernameS"></p>
+                    <input type="email" id="emailS" name="email" placeholder="example@example.com" autocomplete="email" required>
+                    <p class="not_valid" id="not_valid_emailS"></p>
+                    <input type="password" id="passwordS" name="password" placeholder="password" autocomplete="current-password" required>
+                    <p class="not_valid" id="not_valid_passwordS"></p>
+                    <input type="submit" value="Sign-up">
+                </form>
+                <h3>Have an account? <span id="SwitchToLog">Log-in</span> now!</h3> 
             </div>
-            <script>
-                logoutButton = document.body.querySelector('#logout');
-                function clickLogout() {
-                    logoutButton.removeEventListener('click', clickLogout);
-                    showContent(0);
-                }
-                logoutButton.addEventListener('click', clickLogout);
-                startGame();
-            </script>
-        </template>
+        </div>
+        <script>
+            document.getElementById('signupForm').addEventListener('submit', signup);
+
+            signupButton = document.body.querySelector('#SwitchToLog');
+            function clickL() {
+                document.getElementById('signupForm').removeEventListener('submit', signup);
+                signupButton.removeEventListener('click', clickL);
+                showContent("login-template"); 
+            }
+            signupButton.addEventListener('click', clickL);
+        </script>
+    </template>
+
+    <template id="dashboard-template">
+        <div id="flight-deals"></div>
+        <div id="search-flights"></div>
+        <div id="my-flights"></div>
+
+
+
+        <!--<script>
+            logoutButton = document.body.querySelector('#logout');
+            function clickLogout() {
+                logoutButton.removeEventListener('click', clickLogout);
+                showContent(0);
+            }
+            logoutButton.addEventListener('click', clickLogout);
+            startGame();
+        </script>-->
+    </template>
+
+    <template id="flight-details-template">
+        <div id="general-details"></div>
+        <div id="seat-selection"></div>
+        <div id="pricing"></div>
+        <div id="purchase-button"></div>
+    </template>
+
+    <template id="user-info-template">
+        <div id="purchased-tickets">
+            <div id="ticket-info"></div>
+            <div id="reselect-seat-button"></div>
+            <div id="cancel-flight-button"></div>
+        </div>
+    </template>
 </body>
 </html>
