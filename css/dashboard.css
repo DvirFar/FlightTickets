@@ -1,0 +1,38 @@
+#dashboard-container {
+    display: grid;
+    height: 200vh;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    grid-template-areas:    'deals mine'
+                            'search search';
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    section {
+        height: 90%;
+        width: 90%;
+        align-self: center;
+        justify-self: center;
+    }
+
+    #flight-deals {
+        grid-area: deals;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    #my-flights {
+        grid-area: mine;
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    #search-flights {
+        grid-area: search;
+        background-color: brown;
+    }
+}

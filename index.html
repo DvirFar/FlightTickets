@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake Steam</title>
+    <title>Flight Tickets</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!--<link rel="stylesheet" href="css/game.css">-->
     <script src="js/DB-API.js" defer></script>
     <script src="js/spa.js" defer></script>
     <script src="js/login.js" defer></script>
-    <script src="js/game.js" defer></script>
+    <!--<script src="js/game.js" defer></script>-->
 </head>
 <body>
     <template id="navbar-template">
@@ -19,7 +20,7 @@
     </template>
 
     <template id="login-template">
-        <div class="content-container">
+        <div class="content-container" id="login-container">
             <div class="login" id="login">
                 <form id="loginForm" method="get" autocomplete="on">
                     <input type="text" id="usernameL" name="username" placeholder="username" autocomplete="name" required>
@@ -44,7 +45,7 @@
     </template>
 
     <template id="signup-template">
-        <div class="content-container">
+        <div class="content-container" id="signup-container">
             <div class="signup" id="signup">
                 <form id="signupForm" method="post" autocomplete="on">
                     <input type="text" id="usernameS" name="username" placeholder="username" autocomplete="name" required>
@@ -72,9 +73,52 @@
     </template>
 
     <template id="dashboard-template">
-        <div id="flight-deals"></div>
-        <div id="search-flights"></div>
-        <div id="my-flights"></div>
+        <div class="content-container" id="dashboard-container">
+            <section id="flight-deals">
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+            </section>
+            <section id="my-flights">
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+                <div class="flight">
+                    <h3>New York</h3>
+                </div>
+            </section>
+            <section id="search-flights">
+                <form method="post">
+                    <input list="cities" name="from" value="Ben Gurion">
+                    <input list="cities" name="to">
+                    <input type="date" name="departure-date">
+                    <input type="date" name="return-date">
+                    <input type="submit" value="search">
+
+                    <datalist id="cities">
+                        <option value="Tel Aviv">
+                        <option value="Rishon">
+                        <option value="Haifa">
+                        <option value="Jerusalem">
+                    </datalist>
+                </form>
+            </section>
+        </div>
 
 
 
@@ -90,17 +134,17 @@
     </template>
 
     <template id="flight-details-template">
-        <div id="general-details"></div>
-        <div id="seat-selection"></div>
-        <div id="pricing"></div>
-        <div id="purchase-button"></div>
+        <section id="general-details"></section>
+        <section id="seat-selection"></section>
+        <section id="pricing"></section>
+        <section id="purchase-button"></section>
     </template>
 
     <template id="user-info-template">
         <div id="purchased-tickets">
-            <div id="ticket-info"></div>
-            <div id="reselect-seat-button"></div>
-            <div id="cancel-flight-button"></div>
+            <section id="ticket-info"></section>
+            <section id="reselect-seat-button"></section>
+            <section id="cancel-flight-button"></section>
         </div>
     </template>
 </body>
