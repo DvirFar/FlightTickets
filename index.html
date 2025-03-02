@@ -11,6 +11,7 @@
     <script src="js/DB-API.js" defer></script>
     <script src="js/spa.js" defer></script>
     <script src="js/login.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
     <!--<script src="js/game.js" defer></script>-->
 </head>
 <body>
@@ -74,36 +75,221 @@
 
     <template id="dashboard-template">
         <div class="content-container" id="dashboard-container">
-            <section id="flight-deals">
+            <section class="dashboard-flights" id="flight-deals">
                 <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="flight">
-                    <h3>New York</h3>
-                </div>
-                <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section id="my-flights">
+            <section class="dashboard-flights" id="my-flights">
                 <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="flight">
-                    <h3>New York</h3>
-                </div>
-                <div class="flight">
-                    <h3>New York</h3>
+                    <div class="flight-origin flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-destination flight-info">
+                        <div class="flight-company">
+                            <img class="flight-company-logo" src="https://content.skyscnr.com/93c1426f8f7a93ab8191e521aae1d3d5/ai-template-united-thumb-1-xxxhdpi.png?resize=100%3A9999px&quality=100">
+                        </div>
+                        <div class="flight-details">
+                            <span class="flight-date">Fri, Apr 4</span>
+                            <span class="flight-src">ALB - ORD with United</span>
+                        </div>
+                        <div class="flight-type"><span>Direct</span></div>
+                    </div>
+                    <div class="flight-pricing">
+                        <span>from 167$</span>
+                        <div class="flight-price-button">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
+                                <path fill="white" d="M8.095 4.887a1.496 1.496 0 0 1 2.008 0l5.948 6.397a1 1 0 0 1 .003 1.358l-6.01 6.532a1.427 1.427 0 0 1-1.949-.138 1.57 1.57 0 0 1-.103-1.997l4.638-5.078-4.535-4.97a1.72 1.72 0 0 1 0-2.104"></path>
+                            </svg></span>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section id="search-flights">
-                <form method="post">
+                <form id="search-form">
+                    <div class="search-container">
+                        <input type="text" id="from" placeholder="From (City or Airport)" autocomplete="off">
+                        <input type="text" id="to" placeholder="To (City or Airport)" autocomplete="off">
+                        <input type="date" id="departure" placeholder="Departure Date">
+                        <input type="date" id="return" placeholder="Return Date">
+                        <div class="dropdown">
+                            <button type="button" id="travelerBtn">1 Adult, Economy</button>
+                            <div class="dropdown-content">
+                                <label>Adults</label>
+                                <button type="button" onclick="changeCount('adults', -1)">-</button>
+                                <span id="adultsCount">1</span>
+                                <button type="button" onclick="changeCount('adults', 1)">+</button>
+                                <label>Children</label>
+                                <button type="button" onclick="changeCount('children', -1)">-</button>
+                                <span id="childrenCount">0</span>
+                                <button type="button" onclick="changeCount('children', 1)">+</button>
+                                <label>Class</label>
+                                <select id="cabinClass">
+                                    <option>Economy</option>
+                                    <option>Business</option>
+                                    <option>First Class</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+                
+                <!--<form method="post">
                     <input list="cities" name="from" value="Ben Gurion">
                     <input list="cities" name="to">
                     <input type="date" name="departure-date">
@@ -116,11 +302,13 @@
                         <option value="Haifa">
                         <option value="Jerusalem">
                     </datalist>
-                </form>
+                </form>-->
             </section>
         </div>
 
-
+        <script>
+            initializeDashboard();
+        </script>
 
         <!--<script>
             logoutButton = document.body.querySelector('#logout');
