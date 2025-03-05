@@ -12,11 +12,17 @@ body {
     min-height: 100vh;
     background: #3498db;
     color: #fff;
-
     font-family: 'Roboto', sans-serif;
 }
 
 h1, h2 {
     color: #F2A365;
     text-align: center;
+}
+
+button {
+    background-color: #e67e22;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
