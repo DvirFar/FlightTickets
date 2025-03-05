@@ -269,40 +269,35 @@
                         <div class="dropdown">
                             <button type="button" id="travelerBtn">1 Adult, Economy</button>
                             <div class="dropdown-content">
-                                <label>Adults</label>
-                                <button type="button" onclick="changeCount('adults', -1)">-</button>
-                                <span id="adultsCount">1</span>
-                                <button type="button" onclick="changeCount('adults', 1)">+</button>
-                                <label>Children</label>
-                                <button type="button" onclick="changeCount('children', -1)">-</button>
-                                <span id="childrenCount">0</span>
-                                <button type="button" onclick="changeCount('children', 1)">+</button>
-                                <label>Class</label>
-                                <select id="cabinClass">
-                                    <option>Economy</option>
-                                    <option>Business</option>
-                                    <option>First Class</option>
-                                </select>
+                                <div id="dropdown-adults">
+                                    <label>Adults</label>
+                                    <button type="button" onclick="changeCount('adults', -1)">-</button>
+                                    <span id="adultsCount">1</span>
+                                    <button type="button" onclick="changeCount('adults', 1)">+</button>
+                                </div>
+                                <div id="dropdown-children">
+                                    <label>Children</label>
+                                    <button type="button" onclick="changeCount('children', -1)">-</button>
+                                    <span id="childrenCount">0</span>
+                                    <button type="button" onclick="changeCount('children', 1)">+</button>
+                                </div>
+                                <div id="dropdown-class">
+                                    <label>Class</label>
+                                    <select id="cabinClass">
+                                        <option>Economy</option>
+                                        <option>Business</option>
+                                        <option>First Class</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <button type="submit">Search</button>
                     </div>
                 </form>
-                
-                <!--<form method="post">
-                    <input list="cities" name="from" value="Ben Gurion">
-                    <input list="cities" name="to">
-                    <input type="date" name="departure-date">
-                    <input type="date" name="return-date">
-                    <input type="submit" value="search">
 
-                    <datalist id="cities">
-                        <option value="Tel Aviv">
-                        <option value="Rishon">
-                        <option value="Haifa">
-                        <option value="Jerusalem">
-                    </datalist>
-                </form>-->
+                <div class="search-results">
+                    div
+                </div>
             </section>
         </div>
 
