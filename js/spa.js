@@ -11,4 +11,4 @@ function showContent(page) {
 }
 
 //showContent("login-template");
-showContent('flight-details-template');
+showContent('login-template');

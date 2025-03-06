@@ -31,7 +31,7 @@ const init = function initializeUsers() {
     }
 }()
 
-function createUser(username, password, email) {
+function dbCreateUser(username, password, email) {
     const user = new User(username, password, email);
     // console.log(localStorage.getItem(`user_${user.id}`));
     if (localStorage.getItem(username)) return 0;
@@ -40,6 +40,7 @@ function createUser(username, password, email) {
     const usernameList = JSON.parse(localStorage.getItem('usernameList'));
     usernameList.push(JSON.stringify(`${username}`));
     localStorage.setItem('usernameList', JSON.stringify(usernameList));
+    return 1;
 }
 
 function getAllUsers() {

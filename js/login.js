@@ -100,7 +100,22 @@ function signup(event) {
         return;
     }
 
-    createUser(username, customHash(password), email);
+
+
+    //createUser(username, customHash(password), email);
+    const request = new FXAMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            console.log("✅ Réponse reçue :", JSON.parse(request.responseText));
+        }
+    };
+    
+    request.open("POST", "/DB-API/users");
+    
+    request.send({ username, password, email });
+
+
 
     loggedIn(username);
 }
