@@ -1,4 +1,15 @@
 #flight-details-container {
+    #general-details {
+        height: 100px;
+        background-color: rgb(62, 122, 225);
+        padding: 20px;
+    }
+
+    #src-dest {
+        font-size: 1.8em;
+        padding-bottom: 10px;
+    }
+
     #plane-container {
         display: flex;
         flex-direction: column;
