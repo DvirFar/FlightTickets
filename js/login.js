@@ -64,7 +64,7 @@ function loggedIn(username){
     deleteCookie('loginAttempts');
     sessionStorage.setItem('loggedIn', 'true');
     sessionStorage.setItem('username', username);
-    showContent(2);
+    showContent("dashboard-template");
 }
 
 // custom hash, starts with a prime num, multiplies by 33 and XOR with char unicode, make sure it's positive

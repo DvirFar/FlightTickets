@@ -11,4 +11,5 @@ function showContent(page) {
 }
 
 //showContent("login-template");
+//showContent("dashboard-template");
 showContent('flight-details-template');
