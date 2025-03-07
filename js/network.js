@@ -7,15 +7,15 @@ class Network {
 
             setTimeout(() => {
                 if (Math.random() < failureRate) { // Simulating network failure
-                    reject({ status: 500, response: "Network Error" });
+                    reject({ status: 500, responseText: "Network Error" });
                     return;
                 }
 
                 // Route request to the appropriate server
                 if (request.url.startsWith("/users")  /*|| request.url.startsWith("/register")*/) {
-                    resolve(serverAuth.handle(request));
+                    resolve(AuthServer.handle(request));
                 } else {
-                    resolve(serverData.handle(request));
+                    resolve(AuthServer.handle(request));
                 }
             }, delay);
         });

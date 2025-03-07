@@ -13,6 +13,7 @@ class FXAMLHttpRequest {
         this.method = method;
         this.url = url;
         this.readyState = 1; // 1: OPENED
+        this.onreadystatechange();
     }
 
     send(data = null) {
@@ -33,7 +34,7 @@ class FXAMLHttpRequest {
                 // En cas d'erreur réseau
                 self.readyState = 4; // DONE
                 self.status = error.status;
-                self.responseText = error.response;
+                self.responseText = error.responseText;
                 if (typeof self.onreadystatechange === "function") {
                     self.onreadystatechange();
                 }

@@ -94,7 +94,6 @@ function signup(event) {
     const not_valid_password = document.getElementById('not_valid_passwordS');
     not_valid_password.style.display = "none";
     let isPassValid = isPasswordSuitable(password);
-    console.log(isPassValid);
     if (!(isPassValid===true)){
         nonVal(not_valid_password, isPassValid);
         return;
@@ -104,14 +103,15 @@ function signup(event) {
 
     //createUser(username, customHash(password), email);
     const request = new FXAMLHttpRequest();
-
+    
+    
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            console.log("✅ Réponse reçue :", JSON.parse(request.responseText));
+            console.log("✅ Réponse reçue :", request.responseText);
         }
     };
     
-    request.open("POST", "/users"/*, true*/); 
+    request.open("POST", "/users"); 
     request.setRequestHeader("Content-Type", "application/json");
     
     const data = JSON.stringify({ 
@@ -148,7 +148,7 @@ function login(event) {
         return;
     }
     
-    const user = getUser(username);
+    const user = dbGetUser(username);
     console.log(user);
     if (user?.username === username) {
         if (user.password == customHash(password)){

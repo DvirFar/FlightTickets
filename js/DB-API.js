@@ -26,21 +26,19 @@ class User {
 }
 
 const init = function initializeUsers() {
-    if (!JSON.parse(localStorage.getItem('usernameList'))) {
+    if (!localStorage.getItem('usernameList')) {
         localStorage.setItem('usernameList', JSON.stringify([]));
     }
 }()
 
 function dbCreateUser(username, password, email) {
     const user = new User(username, password, email);
-    // console.log(localStorage.getItem(`user_${user.id}`));
-    if (localStorage.getItem(username)) return 0;
     localStorage.setItem(username, JSON.stringify(user));
 
     const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-    usernameList.push(JSON.stringify(`${username}`));
+    usernameList.push(username);
     localStorage.setItem('usernameList', JSON.stringify(usernameList));
-    return 1;
+    return true;
 }
 
 function getAllUsers() {
@@ -56,11 +54,10 @@ function getAllUsers() {
     return users;
 }
 
-function getUser(username) {
+function dbGetUser(username) {
     const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-    console.log(usernameList);
+    //console.log(usernameList);
     for (let user of usernameList) {
-        user = JSON.parse(user);
         if (user === username) {
             return JSON.parse(localStorage.getItem(user));
         }
