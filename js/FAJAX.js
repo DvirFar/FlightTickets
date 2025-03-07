@@ -16,31 +16,22 @@ class FXAMLHttpRequest {
         this.onreadystatechange();
     }
 
+    networkError() {
+        // error!
+    }
+
     send(data = null) {
         this.data = data;
-        const self = this;
+        const onerror = setTimeout(this.networkError, 6500);
         // Simuler le délai d'envoi via network.js
-        Network.send(self)
-            .then(response => {
-                // Mise à jour de l'objet requête comme si la réponse était reçue
-                self.readyState = 4; // DONE
-                self.status = response.status;
-                self.responseText = response.responseText;
-                if (typeof self.onreadystatechange === "function") {
-                    self.onreadystatechange();
-                }
-            })
-            .catch(error => {
-                // En cas d'erreur réseau
-                self.readyState = 4; // DONE
-                self.status = error.status;
-                self.responseText = error.responseText;
-                if (typeof self.onreadystatechange === "function") {
-                    self.onreadystatechange();
-                }
-            });
-
-            // D'autres routes (ex: login) pourraient être ajoutées ici...
+        const response = network.sendRequest(this, onerror);
+        console.log(response);
+        
+         // Mise à jour de l'objet requête comme si la réponse était reçue
+        this.readyState = 4; // DONE
+        this.status = response.status;
+        this.responseText = response.responseText;
+        this.onreadystatechange();
     }
 
     setRequestHeader(header, value) {
