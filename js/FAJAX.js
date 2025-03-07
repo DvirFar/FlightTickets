@@ -19,24 +19,27 @@ class FXAMLHttpRequest {
         this.data = data;
         const self = this;
         // Simuler le délai d'envoi via network.js
-        simulateDelay(() => {
-            // Ici, en fonction de l'URL et de la méthode, on dirige la requête.
-            if (self.url === "/DB-API/data" && self.method === "POST") {
-                // Appel au serveur d'authentification pour le signup
-                const responseFromServer = handleSignup(self);
-                // Simuler un délai de transmission de la réponse du serveur vers le client
-                simulateDelay(() => {
-                    // Mise à jour de l'objet requête comme si la réponse était reçue
-                    self.readyState = 4; // DONE
-                    self.status = responseFromServer.status;
-                    self.responseText = responseFromServer.responseText;
-                    if (typeof self.onreadystatechange === "function") {
-                        self.onreadystatechange();
-                    }
-                });
-            }
+        Network.send(self)
+            .then(response => {
+                // Mise à jour de l'objet requête comme si la réponse était reçue
+                self.readyState = 4; // DONE
+                self.status = response.status;
+                self.responseText = response.responseText;
+                if (typeof self.onreadystatechange === "function") {
+                    self.onreadystatechange();
+                }
+            })
+            .catch(error => {
+                // En cas d'erreur réseau
+                self.readyState = 4; // DONE
+                self.status = error.status;
+                self.responseText = error.response;
+                if (typeof self.onreadystatechange === "function") {
+                    self.onreadystatechange();
+                }
+            });
+
             // D'autres routes (ex: login) pourraient être ajoutées ici...
-        });
     }
 
     setRequestHeader(header, value) {

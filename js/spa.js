@@ -10,6 +10,6 @@ function showContent(page) {
     document.body.appendChild(template.content.cloneNode(true));
 }
 
-//showContent("login-template");
+showContent("login-template");
 //showContent("dashboard-template");
-showContent('flight-details-template');
+//showContent('flight-details-template');

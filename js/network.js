@@ -1,11 +1,23 @@
-const delayRange = { min: 1000, max: 3000 }; // délai entre 1 et 3 secondes
-const dropProbability = 0.3; // Probabilité de perte de message (30%)
+// Simulated Network for Handling Communications Only
+class Network {
+    static send(request) {
+        return new Promise((resolve, reject) => {
+            const delay = Math.random() * 200 + 100; // 1 to 3 seconds delay
+            const failureRate = 0.0 // TO DO 10% to 50% failure probability
 
-// Simule un délai aléatoire
-function simulateDelay(callback) {
-    const delay = Math.floor(Math.random() * (delayRange.max - delayRange.min + 1)) + delayRange.min;
-    setTimeout(callback, delay);
+            setTimeout(() => {
+                if (Math.random() < failureRate) { // Simulating network failure
+                    reject({ status: 500, response: "Network Error" });
+                    return;
+                }
+
+                // Route request to the appropriate server
+                if (request.url.startsWith("/users")  /*|| request.url.startsWith("/register")*/) {
+                    resolve(serverAuth.handle(request));
+                } else {
+                    resolve(serverData.handle(request));
+                }
+            }, delay);
+        });
+    }
 }
-
-// Transmet un message au destinataire avec délai et possibilité de perte
-function transmitMessage(message, destination) { }

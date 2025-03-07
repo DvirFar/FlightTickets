@@ -111,9 +111,16 @@ function signup(event) {
         }
     };
     
-    request.open("POST", "/DB-API/users");
+    request.open("POST", "/users"/*, true*/); 
+    request.setRequestHeader("Content-Type", "application/json");
     
-    request.send({ username, password, email });
+    const data = JSON.stringify({ 
+        username: username, 
+        email: email, 
+        password: password 
+     });
+    request.send(data);
+    
 
 
 
