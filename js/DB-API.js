@@ -67,23 +67,6 @@ const initFlights = function initializeFlights() {
     }
 }()
 
-const generateFlights = function() {
-    const destinations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia'];
-    const sources = ['Miami', 'Dallas', 'San Francisco', 'Seattle', 'Denver', 'Boston'];
-
-    for (let i = 0; i < 6; i++) {
-        const id = `FL${i + 1}`;
-        const src = sources[Math.floor(Math.random() * sources.length)];
-        const dest = destinations[Math.floor(Math.random() * destinations.length)];
-        const numRows = Math.floor(Math.random() * 20) + 10;
-        const numCols = Math.floor(Math.random() * 6) + 4;
-        const timeDepart = new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString();
-        const timeArrival = new Date(Date.now() + Math.floor(Math.random() * 1000000000) + 10000000).toISOString();
-
-        dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeArrival);
-    }
-}
-
 class UserDBAPI {
     dbCreateUser(username, password, email) {
         const user = new User(username, password, email);
@@ -204,5 +187,22 @@ class FlightDBAPI {
                 return;
             }
         });
+    }
+
+    generateFlights = function() {
+        const destinations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia'];
+        const sources = ['Miami', 'Dallas', 'San Francisco', 'Seattle', 'Denver', 'Boston'];
+    
+        for (let i = 0; i < 6; i++) {
+            const id = `FL${i + 1}`;
+            const src = sources[Math.floor(Math.random() * sources.length)];
+            const dest = destinations[Math.floor(Math.random() * destinations.length)];
+            const numRows = Math.floor(Math.random() * 20) + 10;
+            const numCols = Math.floor(Math.random() * 6) + 4;
+            const timeDepart = new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString();
+            const timeArrival = new Date(Date.now() + Math.floor(Math.random() * 1000000000) + 10000000).toISOString();
+    
+            this.dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeArrival);
+        }
     }
 }

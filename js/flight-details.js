@@ -43,7 +43,7 @@ function createPlane(planeData) {
     flightSrc.innerHTML = planeData.src;
     flightDest.innerHTML = planeData.dest;
     flightDeparture.innerHTML = new Date(Date.parse(planeData.timeDepart)).toLocaleString();
-    flightArrival.innerHTML = new Date(Date.parse(planeData.timeLanding)).toLocaleString();
+    flightArrival.innerHTML = new Date(Date.parse(planeData.timeArrival)).toLocaleString();
     planeTitle.innerHTML = planeData.id;
 
     const colLabels = createCols(planeData.numCols);
