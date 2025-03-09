@@ -2,6 +2,19 @@ let adults = 1, children = 0;
 
 function initializeDashboard() {
     adults = 1, children = 0;
+
+    const prices = document.body.querySelectorAll('.flight-pricing');
+
+    function clickFlight() {
+        prices.forEach(price => {
+            price.removeEventListener('click', clickFlight);
+        });
+        showContent('flight-details-template');
+    }
+
+    prices.forEach(price => {
+        price.addEventListener('click', clickFlight);
+    });
 }
 
 function changeCount(type, delta) {

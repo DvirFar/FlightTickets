@@ -35,6 +35,11 @@
         justify-content: space-evenly;
     }
 
+    .flight-pricing {
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
     #search-flights {
         grid-area: search;
         background-color: brown;

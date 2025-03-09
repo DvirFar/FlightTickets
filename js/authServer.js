@@ -53,17 +53,13 @@ class AuthServer {
                 responseText: JSON.stringify("User doesn't exist")
             }
         }
-        console.log("start userInfo: ", userInfo);
         
 
         if (info === "flights") {
             const updateFlight = JSON.parse(request.data);
-            const userFlights = userInfo.flights;
+            const userFlights = JSON.parse(userInfo.flights);
             const updatedUserFlights = [];
             let isUpdated = false;
-
-            console.log("userFlight: ", userFlights);
-            console.log("updateFlight: ", updateFlight);
             
             for (let flight of userFlights) {
                 console.log("flight: ", flight);
@@ -75,14 +71,10 @@ class AuthServer {
                 else {
                     updatedUserFlights.push(flight);
                 }
-
-                if (!isUpdated) updatedUserFlights.push(updateFlight);
-                
-                console.log("Updated userFlight: ", updatedUserFlights);
-                
             }
+            if (!isUpdated) updatedUserFlights.push(updateFlight);
 
-            userInfo.flights = updatedUserFlights;
+            userInfo.flights = JSON.stringify(updatedUserFlights);
             console.log("Updated userInfo: ", userInfo);
             
             this.userDB.dbUpdateUser(username, userInfo);

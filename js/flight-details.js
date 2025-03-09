@@ -30,14 +30,23 @@ function initializeFlightDetails () {
                         seats: JSON.stringify(selectedSeatsList)
                     }
 
-                    const updateRequest = new FXAMLHttpRequest();
-                    updateRequest.onreadystatechange = function() {
-                        if (updateRequest.readyState === 4 && updateRequest.status === 200) {
-                            console.log(updateRequest.responseText);                            
+                    const updateUserRequest = new FXAMLHttpRequest();
+                    updateUserRequest.onreadystatechange = function() {
+                        if (updateUserRequest.readyState === 4 && updateUserRequest.status === 200) {
+                            console.log(updateUserRequest.responseText);                            
                         }
                     }
-                    updateRequest.open("PUT", `/users/${sessionStorage.getItem('username')}/flights`);
-                    updateRequest.send(JSON.stringify(flightSeats));
+                    updateUserRequest.open("PUT", `/users/${sessionStorage.getItem('username')}/flights`);
+                    updateUserRequest.send(JSON.stringify(flightSeats));
+
+                    const updateFlightRequest = new FXAMLHttpRequest();
+                    updateFlightRequest.onreadystatechange = function() {
+                        if (updateFlightRequest.readyState === 4 && updateFlightRequest.status === 200) {
+                            console.log(updateFlightRequest.responseText);                            
+                        }
+                    }
+                    updateFlightRequest.open("PUT", `/data/FL1/seats`);
+                    updateFlightRequest.send(JSON.stringify(flightSeats));
                 }
             });
         }
@@ -67,7 +76,7 @@ function createPlane(planeData) {
     const rowLabelsRight = createRows(planeData.numRows);
     rowLabelsRight.classList.add('right');
 
-    const seatMap = createSeats(planeData.numCols, planeData.numRows);
+    const seatMap = createSeats(planeData.numCols, planeData.numRows, JSON.parse(planeData.occupiedSeats));
 
     plane.innerHTML = '';
 
@@ -118,7 +127,7 @@ function createRows(numRows) {
     return rowLabels;
 }
 
-function createSeats(numCols, numRows) {
+function createSeats(numCols, numRows, seats) {
     const seatMap = document.createElement('div');
     seatMap.id = 'seat-map';
     seatMap.style.gridTemplateColumns = `repeat(${numCols}, 40px)`;
@@ -129,6 +138,8 @@ function createSeats(numCols, numRows) {
             seat = document.createElement('div');
             seat.classList.add('seat');
             seat.setAttribute('data-seat', `${i + 1}${String.fromCharCode(('A'.charCodeAt(0) + j))}`);
+            if (seat.getAttribute('data-seat') in seats) seat.classList.add('occupied');
+
             seatMap.appendChild(seat);
         }
     }

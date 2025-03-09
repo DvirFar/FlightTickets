@@ -5,6 +5,8 @@ class DataServer {
         switch (request.method) { 
             case "GET":
                 return this.handleGet(request);
+            case "PUT":
+                return this.handlePut(request);
             default:
                 return { status: 400, response: "Invalid Data Request" };
         }   
@@ -33,5 +35,33 @@ class DataServer {
                 responseText: JSON.stringify("Flight not found")
             }
         }
+    }
+
+    handlePut(request) {
+        let _, flightID, info;
+        [ _, _, flightID, info ] = request.url.split("/");
+
+        const flight = this.flightDB.dbGetFlight(flightID);
+        if (!flight) {
+            return {
+                status: 404,
+                responseText: JSON.stringify("Flight not found")
+            }
+        }
+
+        if (info === "seats") {
+            const seats = JSON.parse(request.data);
+            const occupied = JSON.parse(flight.occupiedSeats);
+            const combinedSeats = JSON.stringify(seats.concat(occupied));
+
+            flight.occupiedSeats = combinedSeats;
+            this.flightDB.dbUpdateFlight(flightID, JSON.stringify(combinedSeats));
+
+            return {
+                status: 200,
+                responseText: JSON.stringify("Successfully updates flight")
+            }
+        }
+
     }
 }

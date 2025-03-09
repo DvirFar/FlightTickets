@@ -34,6 +34,7 @@ class Flight {
         this._numCols = numCols;
         this._timeDepart = timeDepart;
         this._timeArrival = timeArrival;
+        this.occupiedSeats = JSON.stringify([]);
     }
 
     get id() { return this._id; }
@@ -52,7 +53,8 @@ class Flight {
             numRows: this._numRows,
             numCols: this._numCols,
             timeDepart: this._timeDepart,
-            timeArrival: this._timeArrival
+            timeArrival: this._timeArrival,
+            occupiedSeats: this.occupiedSeats
         }
     }
 }

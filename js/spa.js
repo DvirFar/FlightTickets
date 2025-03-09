@@ -15,6 +15,6 @@ function showContent(page) {
     document.body.appendChild(template.content.cloneNode(true));
 }
 
-//showContent("signup-template");
+showContent("signup-template");
 //showContent("dashboard-template");
-showContent('flight-details-template');
+//showContent('flight-details-template');
