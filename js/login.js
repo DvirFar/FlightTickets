@@ -180,27 +180,6 @@ function login(event) {
     return;
 }
 
-/*function switchToLogin(event){
-    event.preventDefault() 
-    /*document.getElementById('signup').style.display = "none";
-    document.getElementById('login').style.display = "block";
-    document.getElementById('SwitchToSign').addEventListener('click', switchToSignup);
-    document.getElementById('SwitchToLog').removeEventListener('click', switchToLogin);
-    document.getElementById('passwordS').removeEventListener("input", checkPassword);
-    document.getElementById('signupForm').removeEventListener('submit', signup);
-}
-
-function switchToSignup(event){
-    event.preventDefault() 
-    /*document.getElementById('login').style.display = "none";
-    document.getElementById('signup').style.display = "block";
-    document.getElementById('SwitchToLog').addEventListener('click', switchToLogin);
-    document.getElementById('signupForm').addEventListener('submit', signup);
-    document.getElementById('passwordS').addEventListener("input", checkPassword);
-    document.getElementById('SwitchToSign').removeEventListener('click', switchToSignup);
-    document.getElementById('loginForm').removeEventListener('submit', login);
-}*/
-
 // function to get a cookie value by name
 function getCookie(name) {
     const cookies = document.cookie.split(';');
