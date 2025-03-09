@@ -24,14 +24,14 @@ class User {
 }
 
 class Flight {
-    constructor(id, src, dest, numRows, numCols, timeDepart, timeLanding) {
+    constructor(id, src, dest, numRows, numCols, timeDepart, timeArrival) {
         this._id = id;
         this._src = src;
         this._dest = dest;
         this._numRows = numRows;
         this._numCols = numCols;
         this._timeDepart = timeDepart;
-        this._timeLanding = timeLanding;
+        this._timeArrival = timeArrival;
     }
 
     get id() { return this._id; }
@@ -40,7 +40,7 @@ class Flight {
     get numRows() { return this._numRows; }
     get numCols() { return this._numCols; }
     get timeDepart() { return this._timeDepart; }
-    get timeLanding() { return this._timeLanding; }
+    get timeArrival() { return this._timeArrival; }
 
     toJSON() {
         return {
@@ -50,7 +50,7 @@ class Flight {
             numRows: this._numRows,
             numCols: this._numCols,
             timeDepart: this._timeDepart,
-            timeLanding: this._timeLanding
+            timeArrival: this._timeArrival
         }
     }
 }
@@ -67,121 +67,142 @@ const initFlights = function initializeFlights() {
     }
 }()
 
-function dbCreateUser(username, password, email) {
-    const user = new User(username, password, email);
-    localStorage.setItem(username, JSON.stringify(user));
+const generateFlights = function() {
+    const destinations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia'];
+    const sources = ['Miami', 'Dallas', 'San Francisco', 'Seattle', 'Denver', 'Boston'];
 
-    const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-    usernameList.push(username);
-    localStorage.setItem('usernameList', JSON.stringify(usernameList));
-    return true;
-}
+    for (let i = 0; i < 6; i++) {
+        const id = `FL${i + 1}`;
+        const src = sources[Math.floor(Math.random() * sources.length)];
+        const dest = destinations[Math.floor(Math.random() * destinations.length)];
+        const numRows = Math.floor(Math.random() * 20) + 10;
+        const numCols = Math.floor(Math.random() * 6) + 4;
+        const timeDepart = new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString();
+        const timeArrival = new Date(Date.now() + Math.floor(Math.random() * 1000000000) + 10000000).toISOString();
 
-function dbGetAllUsers() {
-    const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-    const users = [];
-    let userDB;
-
-    usernameList.forEach(user => {
-        userDB = JSON.parse(localStorage.getItem(JSON.parse(user)));
-        users.push(userDB);
-    });
-
-    return users;
-}
-
-function dbGetUser(username) {
-    const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-    //console.log(usernameList);
-    for (let user of usernameList) {
-        if (user === username) {
-            return JSON.parse(localStorage.getItem(user));
-        }
+        dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeArrival);
     }
-
-    return 0;
 }
 
-function dbUpdateUser(username, info) {
-    const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-
-    usernameList.forEach(user => {
-        user = JSON.parse(user);
-        if (user === username) {
-            localStorage.setItem(user, JSON.stringify(info));
-            return;
-        }
-    });
-}
-
-function dbDeleteUser(username) {
-    const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-
-    usernameList.forEach(user => {
-        user = JSON.parse(user);
-        if (user === username) {
-            localStorage.removeItem(user);
-            usernameList.filter(name => name !== username);
-            localStorage.setItem('usernameList', JSON.stringify(usernameList));
-            return;
-        }
-    });
-}
-
-function dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeLanding) {
-    const flight = new Flight(id, src, dest, numRows, numCols, timeDepart, timeLanding);
-    localStorage.setItem(id, JSON.stringify(flight));
-
-    const flightsList = JSON.parse(localStorage.getItem('flightsList'));
-    flightsList.push(id);
-    localStorage.setItem('flightsList', JSON.stringify(flightsList));
-    return true;
-}
-
-function dbGetAllFlights() {
-    const flightsList = JSON.parse(localStorage.getItem('flightsList'));
-    const flights = [];
-    let flightDB;
-
-    flightsList.forEach(flight => {
-        flightDB = JSON.parse(localStorage.getItem(JSON.parse(flight)));
-        flights.push(flightDB);
-    });
-
-    return flights;
-}
-
-function dbGetFlight(getFlight) {
-    const flightsList = JSON.parse(localStorage.getItem('flightsList'));
-    for (let flight of flightsList) {
-        if (flight === getFlight) {
-            return JSON.parse(localStorage.getItem(flight));
-        }
+class UserDBAPI {
+    dbCreateUser(username, password, email) {
+        const user = new User(username, password, email);
+        localStorage.setItem(username, JSON.stringify(user));
+    
+        const usernameList = JSON.parse(localStorage.getItem('usernameList'));
+        usernameList.push(username);
+        localStorage.setItem('usernameList', JSON.stringify(usernameList));
+        return true;
     }
-
-    return 0;
+    
+    dbGetAllUsers() {
+        const usernameList = JSON.parse(localStorage.getItem('usernameList'));
+        const users = [];
+        let userDB;
+    
+        usernameList.forEach(user => {
+            userDB = JSON.parse(localStorage.getItem(JSON.parse(user)));
+            users.push(userDB);
+        });
+    
+        return users;
+    }
+    
+    dbGetUser(username) {
+        const usernameList = JSON.parse(localStorage.getItem('usernameList'));
+        //console.log(usernameList);
+        for (let user of usernameList) {
+            if (user === username) {
+                return JSON.parse(localStorage.getItem(user));
+            }
+        }
+    
+        return 0;
+    }
+    
+    dbUpdateUser(username, info) {
+        const usernameList = JSON.parse(localStorage.getItem('usernameList'));
+    
+        usernameList.forEach(user => {
+            user = JSON.parse(user);
+            if (user === username) {
+                localStorage.setItem(user, JSON.stringify(info));
+                return;
+            }
+        });
+    }
+    
+    dbDeleteUser(username) {
+        const usernameList = JSON.parse(localStorage.getItem('usernameList'));
+    
+        usernameList.forEach(user => {
+            user = JSON.parse(user);
+            if (user === username) {
+                localStorage.removeItem(user);
+                usernameList.filter(name => name !== username);
+                localStorage.setItem('usernameList', JSON.stringify(usernameList));
+                return;
+            }
+        });
+    }
 }
 
-function dbUpdateFlight(updateFlight, info) {
-    const flightsList = JSON.parse(localStorage.getItem('flightsList'));
-
-    flightsList.forEach(flight => {
-        if (flight === updateFlight) {
-            localStorage.setItem(flight, JSON.stringify(info));
-            return;
+class FlightDBAPI {
+    dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeArrival) {
+        const flight = new Flight(id, src, dest, numRows, numCols, timeDepart, timeArrival);
+        localStorage.setItem(id, JSON.stringify(flight));
+    
+        const flightsList = JSON.parse(localStorage.getItem('flightsList'));
+        flightsList.push(id);
+        localStorage.setItem('flightsList', JSON.stringify(flightsList));
+        return true;
+    }
+    
+    dbGetAllFlights() {
+        const flightsList = JSON.parse(localStorage.getItem('flightsList'));
+        const flights = [];
+        let flightDB;
+    
+        flightsList.forEach(flight => {
+            flightDB = JSON.parse(localStorage.getItem(JSON.parse(flight)));
+            flights.push(flightDB);
+        });
+    
+        return flights;
+    }
+    
+    dbGetFlight(getFlight) {
+        const flightsList = JSON.parse(localStorage.getItem('flightsList'));
+        for (let flight of flightsList) {
+            if (flight === getFlight) {
+                return JSON.parse(localStorage.getItem(flight));
+            }
         }
-    });
-}
-
-function dbDeleteFlight(deleteFlight) {
-    const flightsList = JSON.parse(localStorage.getItem('flightsList'));
-
-    flightsList.forEach(flight => {
-        if (flight === deleteFlight) {
-            localStorage.removeItem(flight);
-            flightsList.filter(flight => flight !== deleteFlight);
-            localStorage.setItem('usernameList', JSON.stringify(flightsList));
-            return;
-        }
-    });
+    
+        return 0;
+    }
+    
+    dbUpdateFlight(updateFlight, info) {
+        const flightsList = JSON.parse(localStorage.getItem('flightsList'));
+    
+        flightsList.forEach(flight => {
+            if (flight === updateFlight) {
+                localStorage.setItem(flight, JSON.stringify(info));
+                return;
+            }
+        });
+    }
+    
+    dbDeleteFlight(deleteFlight) {
+        const flightsList = JSON.parse(localStorage.getItem('flightsList'));
+    
+        flightsList.forEach(flight => {
+            if (flight === deleteFlight) {
+                localStorage.removeItem(flight);
+                flightsList.filter(flight => flight !== deleteFlight);
+                localStorage.setItem('flightsList', JSON.stringify(flightsList));
+                return;
+            }
+        });
+    }
 }

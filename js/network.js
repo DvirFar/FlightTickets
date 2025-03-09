@@ -1,5 +1,8 @@
 // Simulated Network for Handling Communications Only
 class Network {
+    authServer = new AuthServer();
+    dataServer = new DataServer();
+
     delayRange = { min: 1000, max: 3000 }; // délai entre 1 et 3 secondes
     dropProbability = 0.3;
 
@@ -12,11 +15,23 @@ class Network {
     sendRequest(request, callback) {
         this.simulateDelay(() => {
             // Ici, en fonction de l'URL et de la méthode, on dirige la requête.
-            if (request.url === "/users") {
+            if (request.url.startsWith("/users")) {
                 if (Math.random() < this.dropProbability) { return; }
 
                 // Appel au serveur d'authentification pour le signup
-                const response = AuthServer.handle(request);
+                const response = this.authServer.handle(request);
+                console.log("1", response);
+                // Simuler un délai de transmission de la réponse du serveur vers le client
+                this.simulateDelay(() => { 
+                    console.log("2", response);
+                    callback(response);
+                });
+            }
+            else if (request.url.startsWith("/data")) {
+                if (Math.random() < this.dropProbability) { return; }
+
+                // Appel au serveur d'authentification pour le signup
+                const response = this.dataServer.handle(request);
                 console.log("1", response);
                 // Simuler un délai de transmission de la réponse du serveur vers le client
                 this.simulateDelay(() => { 
@@ -28,5 +43,3 @@ class Network {
         });        
     }
 }
-
-const network = new Network();

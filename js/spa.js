@@ -16,5 +16,5 @@ function showContent(page) {
 }
 
 //showContent("signup-template");
-showContent("dashboard-template");
-//showContent('flight-details-template');
+//showContent("dashboard-template");
+showContent('flight-details-template');

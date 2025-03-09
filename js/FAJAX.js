@@ -1,4 +1,6 @@
 class FXAMLHttpRequest {
+    network = new Network();
+
     constructor() {
         this.readyState = 0;      // 0: UNSENT
         this.status = 0;          // 200: OK, 400: Erreur client, 500: Erreur serveur
@@ -26,7 +28,7 @@ class FXAMLHttpRequest {
         }, 6500);
 
         // Simuler le délai d'envoi via network.js
-        network.sendRequest(this, (response) => {
+        this.network.sendRequest(this, (response) => {
             clearTimeout(onerror);
 
             console.log("3", response);

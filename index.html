@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/navbar.css">
 
     <script src="js/DB-API.js" defer></script>
-    <script src="js/serverAuth.js" defer></script>
+    <script src="js/authServer.js" defer></script>
+    <script src="js/dataServer.js" defer></script>
     <script src="js/network.js" defer></script>
     <script src="js/FAJAX.js" defer></script>
     <script src="js/navbar.js" defer></script>
@@ -337,6 +338,12 @@
                     <span>to</span>
                     <span id="flight-dest">Chicago</span>
                 </div>
+                <div id="dates">
+                    <span>Departs: </span>
+                    <span id="flight-departure">12 Mar 2025, 18:23:14</span>
+                    <span>, Lands: </span>
+                    <span id="flight-arrival"> 12 Mar 2025, 22:25:45</span>
+                </div>
                 <div id="other-details">
                     <span id="flight-travelers">3 adults, 2 children</span>
                     <span> • </span>
@@ -347,13 +354,17 @@
             </section>
             <section id="seat-selection">
                 <div id="plane-container">
-                    <div class="plane-title">Flight Seat Selection</div>
+                    <div id="plane-title">
+                        <span>Flight ID.</span>
+                        <span id="flight-id"></span>
+                        <span>: Seat Selection</span>
+                    </div>
                 
-                    <div class="screen">Cockpit</div>
+                    <div id="screen">Cockpit</div>
 
                     <div id="plane">
 
-                        <!-- Column Labels -->
+                        <!-- Column Labels --
                          <div class="col-labels">
                             <div class="label">A</div>
                             <div class="label">B</div>
@@ -364,7 +375,7 @@
                             <div class="label">F</div>
                          </div>
 
-                        <!-- Row Labels (Left) -->
+                        <-- Row Labels (Left) --
                         <div class="row-labels left">
                             <div class="label">1</div>
                             <div class="label">2</div>
@@ -376,27 +387,27 @@
                             <div class="label">8</div>
                         </div>
                     
-                        <!-- Seats Grid -->
+                        <-- Seats Grid --
                         <div id="seat-map">
-                            <!-- Row 1 -->
+                            <-- Row 1 --
                             <div class="seat" data-seat="1A"></div>
                             <div class="seat" data-seat="1B"></div>
                             <div class="seat" data-seat="1C"></div>
-                            <div class="aisle"></div>  <!-- Aisle space -->
+                            <div class="aisle"></div>  <-- Aisle space --
                             <div class="seat" data-seat="1D"></div>
                             <div class="seat" data-seat="1E"></div>
                             <div class="seat" data-seat="1F"></div>
                         
-                            <!-- Row 2 -->
+                            <-- Row 2 --
                             <div class="seat" data-seat="2A"></div>
-                            <div class="seat occupied" data-seat="2B"></div>  <!-- Occupied -->
+                            <div class="seat occupied" data-seat="2B"></div>  <-- Occupied --
                             <div class="seat" data-seat="2C"></div>
                             <div class="aisle"></div>
                             <div class="seat" data-seat="2D"></div>
                             <div class="seat" data-seat="2E"></div>
                             <div class="seat" data-seat="2F"></div>
                         
-                            <!-- Row 3 -->
+                            <-- Row 3 --
                             <div class="seat" data-seat="3A"></div>
                             <div class="seat" data-seat="3B"></div>
                             <div class="seat" data-seat="3C"></div>
@@ -405,7 +416,7 @@
                             <div class="seat occupied" data-seat="3E"></div>
                             <div class="seat" data-seat="3F"></div>
                         
-                            <!-- Row 4 -->
+                            <-- Row 4 --
                             <div class="seat" data-seat="4A"></div>
                             <div class="seat" data-seat="4B"></div>
                             <div class="seat" data-seat="4C"></div>
@@ -414,25 +425,25 @@
                             <div class="seat" data-seat="4E"></div>
                             <div class="seat" data-seat="4F"></div>
 
-                            <!-- Row 5 -->
+                            <-- Row 5 --
                             <div class="seat" data-seat="5A"></div>
                             <div class="seat" data-seat="5B"></div>
                             <div class="seat" data-seat="5C"></div>
-                            <div class="aisle"></div>  <!-- Aisle space -->
+                            <div class="aisle"></div>  <-- Aisle space --
                             <div class="seat" data-seat="5D"></div>
                             <div class="seat" data-seat="5E"></div>
                             <div class="seat" data-seat="5F"></div>
                         
-                            <!-- Row 6 -->
+                            <-- Row 6 --
                             <div class="seat" data-seat="6A"></div>
-                            <div class="seat occupied" data-seat="6B"></div>  <!-- Occupied -->
+                            <div class="seat occupied" data-seat="6B"></div>  <-- Occupied --
                             <div class="seat" data-seat="6C"></div>
                             <div class="aisle"></div>
                             <div class="seat" data-seat="6D"></div>
                             <div class="seat" data-seat="6E"></div>
                             <div class="seat" data-seat="6F"></div>
                         
-                            <!-- Row 7 -->
+                            <-- Row 7 --
                             <div class="seat" data-seat="7A"></div>
                             <div class="seat" data-seat="7B"></div>
                             <div class="seat" data-seat="7C"></div>
@@ -441,7 +452,7 @@
                             <div class="seat occupied" data-seat="7E"></div>
                             <div class="seat" data-seat="7F"></div>
                         
-                            <!-- Row 8 -->
+                            <-- Row 8 --
                             <div class="seat" data-seat="8A"></div>
                             <div class="seat" data-seat="8B"></div>
                             <div class="seat" data-seat="8C"></div>
@@ -451,7 +462,7 @@
                             <div class="seat" data-seat="8F"></div>
                         </div>
                     
-                        <!-- Row Labels (Right) -->
+                        <-- Row Labels (Right) --
                         <div class="row-labels right">
                             <div class="label">1</div>
                             <div class="label">2</div>
@@ -461,14 +472,12 @@
                             <div class="label">6</div>
                             <div class="label">7</div>
                             <div class="label">8</div>
-                        </div>
+                        </div>-->
                     </div>
                 
                     <button id="confirm-selection">Confirm Selection</button>
                 </div>           
             </section>
-            <section id="pricing"></section>
-            <section id="purchase-button"></section>
         </div>
 
         <script>
