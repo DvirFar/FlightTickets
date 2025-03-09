@@ -1,6 +1,7 @@
 #dashboard-container {
+    margin-top: 60px;
     display: grid;
-    height: 200vh;
+    height: 183vh;
     grid-template: 1fr 1fr / 1fr 1fr;
     grid-template-areas:    'deals my'
                             'search search';

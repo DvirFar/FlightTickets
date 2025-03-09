@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Tickets</title>
+
+    <link rel="icon" type="image/favicon.svg" href="assets/favicon.svg">
     
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/flight-details.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <script src="js/DB-API.js" defer></script>
     <script src="js/serverAuth.js" defer></script>
     <script src="js/network.js" defer></script>
     <script src="js/FAJAX.js" defer></script>
+    <script src="js/navbar.js" defer></script>
     <script src="js/login.js" defer></script>
     <script src="js/dashboard.js" defer></script>
     <script src="js/flight-details.js" defer></script>
@@ -21,8 +25,26 @@
 </head>
 <body>
     <template id="navbar-template">
-        <div id="app-icon"></div>
-        <div id="user-icon"></div>
+        <div id="navbar-container">
+            <nav>
+                <div id="app-icon">
+                    <img src="assets/favicon.svg" alt="logo">
+                </div>
+                <div class="logout">
+                    <button id="navbar-logout">Logout</button>
+                </div>
+                <div id="user-profile">
+                    <div id="user-icon">
+                        <img src="assets/images/profile_holder.png" alt="user-profile-image">
+                    </div>
+                    <h3 id="user-welcome">Welcome, User</h3>
+                </div>
+            </nav>
+        </div>
+
+        <script>
+            initializeNavbar();
+        </script>
     </template>
 
     <template id="login-template">
@@ -38,15 +60,8 @@
             </div>
         </div>
         <script>
-            document.getElementById('loginForm').addEventListener('submit', login);
-            
-            loginButton = document.body.querySelector('#SwitchToSign');
-            function clickS() {
-                document.getElementById('loginForm').removeEventListener('submit', login);
-                loginButton.removeEventListener('click', clickS);
-                showContent("signup-template"); 
-            }
-            loginButton.addEventListener('click', clickS);
+            if (sessionStorage.getItem('loggedIn')) showContent("dashboard-template");
+            else initializeLogin();
         </script>
     </template>
 
@@ -54,11 +69,11 @@
         <div class="content-container" id="signup-container">
             <div class="signup" id="signup">
                 <form id="signupForm" method="post" autocomplete="on">
-                    <input type="text" id="usernameS" name="username" placeholder="username" autocomplete="name" required>
+                    <input type="text" id="usernameS" name="username" value="dvir" placeholder="username" autocomplete="name" required>
                     <p class="not_valid" id="not_valid_usernameS"></p>
-                    <input type="email" id="emailS" name="email" placeholder="example@example.com" autocomplete="email" required>
+                    <input type="email" id="emailS" name="email" value="dvirfa1@gmail.com" placeholder="example@example.com" autocomplete="email" required>
                     <p class="not_valid" id="not_valid_emailS"></p>
-                    <input type="password" id="passwordS" name="password" placeholder="password" autocomplete="current-password" required>
+                    <input type="password" id="passwordS" name="password" value="P^assw0rd" placeholder="password" autocomplete="current-password" required>
                     <p class="not_valid" id="not_valid_passwordS"></p>
                     <input type="submit" value="Sign-up">
                 </form>
@@ -66,15 +81,8 @@
             </div>
         </div>
         <script>
-            document.getElementById('signupForm').addEventListener('submit', signup);
-
-            signupButton = document.body.querySelector('#SwitchToLog');
-            function clickL() {
-                document.getElementById('signupForm').removeEventListener('submit', signup);
-                signupButton.removeEventListener('click', clickL);
-                showContent("login-template"); 
-            }
-            signupButton.addEventListener('click', clickL);
+            if (sessionStorage.getItem('loggedIn')) showContent("dashboard-template");
+            else initializeSignup();
         </script>
     </template>
 
@@ -325,15 +333,16 @@
         <div id="flight-details-container">
             <section id="general-details">
                 <div id="src-dest">
-                    <span>Albany</span>
-                    <span>Chicago</span>
+                    <span id="flight-src">Albany</span>
+                    <span>to</span>
+                    <span id="flight-dest">Chicago</span>
                 </div>
                 <div id="other-details">
-                    <span>3 adults, 2 children</span>
-                    <span class="interpunct"> • </span>
-                    <span>Roundtrip</span>
-                    <span class="interpunct"> • </span>
-                    <span>Economy</span>
+                    <span id="flight-travelers">3 adults, 2 children</span>
+                    <span> • </span>
+                    <span id="flight-type">Roundtrip</span>
+                    <span> • </span>
+                    <span id="flight-class">Economy</span>
                 </div>
             </section>
             <section id="seat-selection">
@@ -469,9 +478,11 @@
 
     <template id="user-info-template">
         <div id="purchased-tickets">
-            <section id="ticket-info"></section>
-            <section id="reselect-seat-button"></section>
-            <section id="cancel-flight-button"></section>
+            <div class="ticket">
+                <section id="ticket-info"></section>
+                <section id="reselect-seat-button"></section>
+                <section id="cancel-flight-button"></section>
+            </div>
         </div>
     </template>
 </body>

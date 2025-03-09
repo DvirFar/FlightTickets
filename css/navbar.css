@@ -1,0 +1,48 @@
+#navbar-container {
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+        background: #3477db;
+        z-index: 1;
+    }
+
+    #app-icon img {
+        height: 40px;
+        width: auto;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .logout {
+        margin-left: 10%;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+    }
+
+    button:hover {
+        background: #bb702f;
+    }
+
+    #user-profile {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #user-icon img {
+        height: 40px;
+        width: auto;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}

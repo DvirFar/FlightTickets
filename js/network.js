@@ -4,33 +4,28 @@ class Network {
     dropProbability = 0.3;
 
     // Simule un délai aléatoire
-    simulateDelay(callback, response) {
+    simulateDelay(callback) {
         const delay = Math.floor(Math.random() * (this.delayRange.max - this.delayRange.min + 1)) + this.delayRange.min;
-        setTimeout(callback.call(this, response), delay);
+        setTimeout(callback, delay);
     }
 
-    sendRequest(request, onerror) {
-        let responseFromServer;
+    sendRequest(request, callback) {
         this.simulateDelay(() => {
             // Ici, en fonction de l'URL et de la méthode, on dirige la requête.
             if (request.url === "/users") {
-                if (Math.random() < this.dropProbability) {
-                    return;
-                }
+                if (Math.random() < this.dropProbability) { return; }
+
                 // Appel au serveur d'authentification pour le signup
-                responseFromServer = AuthServer.handle(self);
-                console.log("1", responseFromServer);
+                const response = AuthServer.handle(request);
+                console.log("1", response);
                 // Simuler un délai de transmission de la réponse du serveur vers le client
                 this.simulateDelay(() => { 
-                    clearTimeout(onerror);
-                    console.log("2", responseFromServer);
-                    return responseFromServer;
-                }, responseFromServer);
+                    console.log("2", response);
+                    callback(response);
+                });
             }
             // D'autres routes (ex: login) pourraient être ajoutées ici...
-        }, responseFromServer);
-        console.log("3", responseFromServer);
-        
+        });        
     }
 }
 

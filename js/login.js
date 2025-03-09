@@ -56,8 +56,15 @@ function checkPassword(event){
     nonVal(not_valid, isValid);
 }
 
-
-
+// custom hash, starts with a prime num, multiplies by 33 and XOR with char unicode, make sure it's positive
+function customHash(input) {
+    let hash = 5381;
+    for (let i = 0; i < input.length; i++) {
+        const charCode = input.charCodeAt(i);
+        hash = (hash * 33) ^ charCode;
+    }
+    return hash >>> 0;
+}
 
 // execute on log in
 function loggedIn(username){
@@ -67,14 +74,28 @@ function loggedIn(username){
     showContent("dashboard-template");
 }
 
-// custom hash, starts with a prime num, multiplies by 33 and XOR with char unicode, make sure it's positive
-function customHash(input) {
-    let hash = 5381;
-    for (let i = 0; i < input.length; i++) {
-        const charCode = input.charCodeAt(i);
-        hash = (hash * 33) ^ charCode;
+function initializeSignup() {
+    document.getElementById('signupForm').addEventListener('submit', signup);
+
+    signupButton = document.body.querySelector('#SwitchToLog');
+    function clickL() {
+        document.getElementById('signupForm').removeEventListener('submit', signup);
+        signupButton.removeEventListener('click', clickL);
+        showContent("login-template"); 
     }
-    return hash >>> 0;
+    signupButton.addEventListener('click', clickL);
+}
+
+function initializeLogin() {
+    document.getElementById('loginForm').addEventListener('submit', login);
+            
+    loginButton = document.body.querySelector('#SwitchToSign');
+    function clickS() {
+        document.getElementById('loginForm').removeEventListener('submit', login);
+        loginButton.removeEventListener('click', clickS);
+        showContent("signup-template"); 
+    }
+    loginButton.addEventListener('click', clickS);
 }
 
 // signup function
@@ -99,11 +120,8 @@ function signup(event) {
         return;
     }
 
-
-
     //createUser(username, customHash(password), email);
     const request = new FXAMLHttpRequest();
-    
     
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -117,19 +135,15 @@ function signup(event) {
     const data = JSON.stringify({ 
         username: username, 
         email: email, 
-        password: password 
-     });
+        password: customHash(password) 
+    });
     request.send(data);
     
-
-
-
     loggedIn(username);
 }
 
 // login function
 function login(event) {
-    console.log("Submitted");
     event.preventDefault();
 
     const username = document.getElementById('usernameL').value;
