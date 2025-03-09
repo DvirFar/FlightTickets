@@ -24,6 +24,7 @@ class FXAMLHttpRequest {
             this.readyState = 4;
             this.status = 0;
             this.responseText = "Network Error";
+            console.log("Network Error");
             this.onreadystatechange();
         }, 6500);
 

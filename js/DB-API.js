@@ -7,6 +7,7 @@ class User {
         this._username = username;
         this._password = password;
         this._email = email;
+        this.flights = JSON.stringify([]);
     }
 
     //get id() { return this._id; }
@@ -19,6 +20,7 @@ class User {
             username: this._username,
             password: this._password,
             email: this._email,
+            flights: this.flights
         }
     }
 }
@@ -93,7 +95,7 @@ class UserDBAPI {
     
     dbGetUser(username) {
         const usernameList = JSON.parse(localStorage.getItem('usernameList'));
-        //console.log(usernameList);
+        
         for (let user of usernameList) {
             if (user === username) {
                 return JSON.parse(localStorage.getItem(user));
@@ -107,7 +109,6 @@ class UserDBAPI {
         const usernameList = JSON.parse(localStorage.getItem('usernameList'));
     
         usernameList.forEach(user => {
-            user = JSON.parse(user);
             if (user === username) {
                 localStorage.setItem(user, JSON.stringify(info));
                 return;
@@ -119,7 +120,6 @@ class UserDBAPI {
         const usernameList = JSON.parse(localStorage.getItem('usernameList'));
     
         usernameList.forEach(user => {
-            user = JSON.parse(user);
             if (user === username) {
                 localStorage.removeItem(user);
                 usernameList.filter(name => name !== username);

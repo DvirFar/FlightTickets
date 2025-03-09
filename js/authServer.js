@@ -5,6 +5,8 @@ class AuthServer {
         switch (request.method) { // for example -> request = {body: "{\"username\":\"yehuda\",\"password\":\"123456\"}" method: "POST" url: "/login"}
             case "POST":
                 return this.handleSignup(request);
+            case "PUT":
+                return this.handleUpdates(request);
             default:
                 return { status: 400, response: "Invalid Auth Request" };
         }   
@@ -37,6 +39,58 @@ class AuthServer {
                 status: 500,
                 responseText: JSON.stringify({ message: "Error creating user" })
             };
+        }
+    }
+
+    handleUpdates(request) {
+        let _, username, info;
+        [ _, _, username, info ] = request.url.split("/");
+
+        const userInfo = this.userDB.dbGetUser(username);
+        if (!userInfo) {
+            return {
+                status: 404,
+                responseText: JSON.stringify("User doesn't exist")
+            }
+        }
+        console.log("start userInfo: ", userInfo);
+        
+
+        if (info === "flights") {
+            const updateFlight = JSON.parse(request.data);
+            const userFlights = userInfo.flights;
+            const updatedUserFlights = [];
+            let isUpdated = false;
+
+            console.log("userFlight: ", userFlights);
+            console.log("updateFlight: ", updateFlight);
+            
+            for (let flight of userFlights) {
+                console.log("flight: ", flight);
+                
+                if (flight.id === updateFlight.id) {
+                    updatedUserFlights.push(updateFlight);
+                    isUpdated = true;
+                }
+                else {
+                    updatedUserFlights.push(flight);
+                }
+
+                if (!isUpdated) updatedUserFlights.push(updateFlight);
+                
+                console.log("Updated userFlight: ", updatedUserFlights);
+                
+            }
+
+            userInfo.flights = updatedUserFlights;
+            console.log("Updated userInfo: ", userInfo);
+            
+            this.userDB.dbUpdateUser(username, userInfo);
+
+            return {
+                status: 200,
+                responseText: JSON.stringify("Successfully updated user")
+            }
         }
     }
 }

@@ -20,10 +20,8 @@ class Network {
 
                 // Appel au serveur d'authentification pour le signup
                 const response = this.authServer.handle(request);
-                console.log("1", response);
                 // Simuler un délai de transmission de la réponse du serveur vers le client
-                this.simulateDelay(() => { 
-                    console.log("2", response);
+                this.simulateDelay(() => {
                     callback(response);
                 });
             }
@@ -32,10 +30,8 @@ class Network {
 
                 // Appel au serveur d'authentification pour le signup
                 const response = this.dataServer.handle(request);
-                console.log("1", response);
                 // Simuler un délai de transmission de la réponse du serveur vers le client
-                this.simulateDelay(() => { 
-                    console.log("2", response);
+                this.simulateDelay(() => {
                     callback(response);
                 });
             }

@@ -3,8 +3,9 @@ function initializeFlightDetails () {
     const request = new FXAMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            console.log("✅ Response Received:", JSON.parse(request.responseText));
-            createPlane(JSON.parse(request.responseText));
+            const response = JSON.parse(request.responseText);
+            console.log("✅ Response Received:", response);
+            createPlane(response);
 
             const seats = document.querySelectorAll(".seat:not(.occupied)");
             const confirmButton = document.getElementById("confirm-selection");
@@ -24,6 +25,19 @@ function initializeFlightDetails () {
                 } else {
                     alert("You selected: " + selectedSeatsList.join(", "));
                     // Here you can send data to your backend or update localStorage
+                    const flightSeats = {
+                        id: response.id,
+                        seats: JSON.stringify(selectedSeatsList)
+                    }
+
+                    const updateRequest = new FXAMLHttpRequest();
+                    updateRequest.onreadystatechange = function() {
+                        if (updateRequest.readyState === 4 && updateRequest.status === 200) {
+                            console.log(updateRequest.responseText);                            
+                        }
+                    }
+                    updateRequest.open("PUT", `/users/${sessionStorage.getItem('username')}/flights`);
+                    updateRequest.send(JSON.stringify(flightSeats));
                 }
             });
         }
@@ -62,7 +76,6 @@ function createPlane(planeData) {
     const seatsRows = `"row-list-left ${repeatSeats}row-list-right"\n`.repeat(planeData.numRows);
     
     const gridTemplate = `". ${repeatCols}."\n${seatsRows}`;
-    console.log(gridTemplate);
     
     plane.style.gridTemplateAreas = gridTemplate;
     plane.appendChild(colLabels);
