@@ -73,6 +73,9 @@ function initializeFlightDetails () {
                     seats: selectedSeatsList
                 }
 
+                // call a function that displays a loading on the button
+                showLoadingOnButton(document.getElementById('confirm-selection'));
+
                 // Update users server
                 const updateUserRequest = new FXAMLHttpRequest();
                 updateUserRequest.onreadystatechange = function() {
@@ -97,6 +100,14 @@ function initializeFlightDetails () {
             }
         });
     });
+
+    // function to show loading on button
+    function showLoadingOnButton(button) {
+    let btn = button;
+    
+    // Add class for loading animation
+    btn.classList.add("loading");
+}
 }
 
 function createPlane(planeData, userData) {

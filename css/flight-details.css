@@ -28,11 +28,6 @@
         animation: spin 1.5s linear infinite; /* Tourne en continu */
     }
     
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
     /* Masquer les loaders après chargement */
     .loading-complete .loader-small {
         display: none;
@@ -151,5 +146,32 @@
 
     button:hover {
         background: #bb702f;
+    }
+
+    .loader {
+        display: inline-block;
+        width: 12px; /* Plus petit que l'icône de bouton */
+        height: 12px;
+        border: 2px solid white;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+   /* Adjust the button to center it well */
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    
+    /* Hide the text during loading */
+    .loading .btn-text {
+        display: none;
+    }
+    
+    .loading .loader {
+        display: block;
     }
 }
