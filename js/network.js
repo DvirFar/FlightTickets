@@ -4,7 +4,7 @@ class Network {
     dataServer = new DataServer();
 
     delayRange = { min: 1000, max: 3000 }; // délai entre 1 et 3 secondes
-    dropProbability = 0.3;
+    dropProbability = 0.1;
 
     // Simule un délai aléatoire
     simulateDelay(callback) {

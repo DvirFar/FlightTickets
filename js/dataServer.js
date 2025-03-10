@@ -50,12 +50,14 @@ class DataServer {
         }
 
         if (info === "seats") {
-            const seats = JSON.parse(request.data);
-            const occupied = JSON.parse(flight.occupiedSeats);
-            const combinedSeats = JSON.stringify(seats.concat(occupied));
+            const data = JSON.parse(request.data);
+            const occupied = flight.occupiedSeats;
+            const combinedSeats = JSON.parse(data.seats).concat(occupied);
 
             flight.occupiedSeats = combinedSeats;
-            this.flightDB.dbUpdateFlight(flightID, JSON.stringify(combinedSeats));
+            console.log("Updates flight: ", flight);
+            
+            this.flightDB.dbUpdateFlight(flightID, flight);
 
             return {
                 status: 200,

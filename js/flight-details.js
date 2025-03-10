@@ -24,7 +24,6 @@ function initializeFlightDetails () {
                     alert("No seats selected!");
                 } else {
                     alert("You selected: " + selectedSeatsList.join(", "));
-                    // Here you can send data to your backend or update localStorage
                     const flightSeats = {
                         id: response.id,
                         seats: JSON.stringify(selectedSeatsList)
@@ -76,7 +75,9 @@ function createPlane(planeData) {
     const rowLabelsRight = createRows(planeData.numRows);
     rowLabelsRight.classList.add('right');
 
-    const seatMap = createSeats(planeData.numCols, planeData.numRows, JSON.parse(planeData.occupiedSeats));
+    //console.log("Data: ", JSON.parse(planeData));
+    //console.log("Seats: ", JSON.parse(planeData).occupiedSeats);
+    const seatMap = createSeats(planeData.numCols, planeData.numRows, planeData.occupiedSeats);
 
     plane.innerHTML = '';
 
@@ -132,13 +133,19 @@ function createSeats(numCols, numRows, seats) {
     seatMap.id = 'seat-map';
     seatMap.style.gridTemplateColumns = `repeat(${numCols}, 40px)`;
     let seat;
-
+    
     for (const i of Array(numRows).keys()) {
         for (const j of Array(numCols).keys()) {
             seat = document.createElement('div');
             seat.classList.add('seat');
             seat.setAttribute('data-seat', `${i + 1}${String.fromCharCode(('A'.charCodeAt(0) + j))}`);
-            if (seat.getAttribute('data-seat') in seats) seat.classList.add('occupied');
+
+            
+            if (seats.includes(seat.getAttribute('data-seat'))) {
+                console.log("Seat is occupied!");
+                
+                seat.classList.add('occupied');
+            }
 
             seatMap.appendChild(seat);
         }
