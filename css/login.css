@@ -44,7 +44,7 @@
         border: 2px solid white;
         border-top: 2px solid transparent;
         border-radius: 50%;
-        animation: spin 5s linear infinite;
+        animation: spin 1s linear infinite;
     }
 
    /* Adjust the button to center it well */
@@ -55,12 +55,7 @@
         position: relative; /* Needed to center .loader */
     }
     
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Masquer le texte lors du chargement */
+    /* Hide the text during loading */
     .loading .btn-text {
         display: none;
     }
