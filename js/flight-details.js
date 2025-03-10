@@ -68,11 +68,13 @@ function initializeFlightDetails () {
             if (selectedSeatsList.length === 0) {
                 alert("No seats selected!");
             } else {
-                alert("You selected: " + selectedSeatsList.join(", "));
                 const flightSeats = {
                     id: JSON.parse(flightResponse).id,
                     seats: selectedSeatsList
                 }
+
+                // call a function that displays a loading on the button
+                showLoadingOnButton(document.getElementById('confirm-selection'));
 
                 // Update users server
                 const updateUserRequest = new FXAMLHttpRequest();
@@ -88,7 +90,9 @@ function initializeFlightDetails () {
                 const updateFlightRequest = new FXAMLHttpRequest();
                 updateFlightRequest.onreadystatechange = function() {
                     if (updateFlightRequest.readyState === 4 && updateFlightRequest.status === 200) {
-                        console.log(updateFlightRequest.responseText);                            
+                        console.log(updateFlightRequest.responseText);     
+                        alert("You selected: " + selectedSeatsList.join(", ")); 
+                        showContent('dashboard-template');                      
                     }
                 }
                 updateFlightRequest.open("PUT", `/data/${currentFlightID}/seats`);
@@ -96,6 +100,14 @@ function initializeFlightDetails () {
             }
         });
     });
+
+    // function to show loading on button
+    function showLoadingOnButton(button) {
+    let btn = button;
+    
+    // Add class for loading animation
+    btn.classList.add("loading");
+}
 }
 
 function createPlane(planeData, userData) {
