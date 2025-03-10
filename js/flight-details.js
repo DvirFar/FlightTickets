@@ -1,60 +1,93 @@
 
 function initializeFlightDetails () {
-    const request = new FXAMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            const response = JSON.parse(request.responseText);
-            console.log("✅ Response Received:", response);
-            createPlane(response);
+    function makeRequests(finalCallback) {
+        let responses = 0;
+        let results = {};
 
-            const seats = document.querySelectorAll(".seat:not(.occupied)");
-            const confirmButton = document.getElementById("confirm-selection");
+        function handleResponse(key, data) {
+            results[key] = data;
+            responses++;
 
-            seats.forEach(seat => {
-                seat.addEventListener("click", () => {
-                    seat.classList.toggle("selected");
-                });
-            });
-
-            confirmButton.addEventListener("click", () => {
-                const selectedSeats = document.querySelectorAll(".seat.selected");
-                const selectedSeatsList = [...selectedSeats].map(seat => seat.getAttribute("data-seat"));
-                
-                if (selectedSeatsList.length === 0) {
-                    alert("No seats selected!");
-                } else {
-                    alert("You selected: " + selectedSeatsList.join(", "));
-                    const flightSeats = {
-                        id: response.id,
-                        seats: JSON.stringify(selectedSeatsList)
-                    }
-
-                    const updateUserRequest = new FXAMLHttpRequest();
-                    updateUserRequest.onreadystatechange = function() {
-                        if (updateUserRequest.readyState === 4 && updateUserRequest.status === 200) {
-                            console.log(updateUserRequest.responseText);                            
-                        }
-                    }
-                    updateUserRequest.open("PUT", `/users/${sessionStorage.getItem('username')}/flights`);
-                    updateUserRequest.send(JSON.stringify(flightSeats));
-
-                    const updateFlightRequest = new FXAMLHttpRequest();
-                    updateFlightRequest.onreadystatechange = function() {
-                        if (updateFlightRequest.readyState === 4 && updateFlightRequest.status === 200) {
-                            console.log(updateFlightRequest.responseText);                            
-                        }
-                    }
-                    updateFlightRequest.open("PUT", `/data/FL1/seats`);
-                    updateFlightRequest.send(JSON.stringify(flightSeats));
-                }
-            });
+            if (responses === 2) {
+                // Both requests are done, now execute the final callback
+                finalCallback(results);
+            }
         }
+
+        const flightRequest = new FXAMLHttpRequest();
+        flightRequest.onreadystatechange = function () {
+            if (flightRequest.readyState === 4 && flightRequest.status === 200) {
+                handleResponse("flightRequest", flightRequest.responseText);
+            }
+        };
+        flightRequest.open('GET', '/data?flID=FL1');
+        flightRequest.send('');
+
+        const userRequest = new FXAMLHttpRequest();
+        userRequest.onreadystatechange = function() {
+            if (userRequest.readyState === 4 && userRequest.status === 200) {
+                handleResponse("userRequest", userRequest.responseText);
+            }
+        };
+        userRequest.open('GET', `/users/${sessionStorage.getItem('username')}/flights?flID=FL1`);
+        userRequest.send();
     }
-    request.open('GET', '/data?flID=FL1');
-    request.send('');
+
+    makeRequests(function (results) {
+        console.log("Both requests finished:", results);
+        let flightResponse = results["flightRequest"], userResponse = results["userRequest"];
+
+        console.log("✅ Flight Response Received:", flightResponse);
+        console.log("✅ User Response Received:", userResponse);
+        createPlane(JSON.parse(flightResponse), JSON.parse(userResponse));
+
+        const seats = document.querySelectorAll(".seat:not(.occupied)");
+        const confirmButton = document.getElementById("confirm-selection");
+
+        seats.forEach(seat => {
+            seat.addEventListener("click", () => {
+                seat.classList.toggle("selected");
+            });
+        });
+
+        confirmButton.addEventListener("click", () => {
+            const selectedSeats = document.querySelectorAll(".seat.selected");
+            const selectedSeatsList = [...selectedSeats].map(seat => seat.getAttribute("data-seat"));
+            
+            if (selectedSeatsList.length === 0) {
+                alert("No seats selected!");
+            } else {
+                alert("You selected: " + selectedSeatsList.join(", "));
+                const flightSeats = {
+                    id: JSON.parse(flightResponse).id,
+                    seats: selectedSeatsList
+                }
+
+                // Update users server
+                const updateUserRequest = new FXAMLHttpRequest();
+                updateUserRequest.onreadystatechange = function() {
+                    if (updateUserRequest.readyState === 4 && updateUserRequest.status === 200) {
+                        console.log(updateUserRequest.responseText);                            
+                    }
+                }
+                updateUserRequest.open("PUT", `/users/${sessionStorage.getItem('username')}/flights`);
+                updateUserRequest.send(JSON.stringify(flightSeats));
+
+                // Update flights server
+                const updateFlightRequest = new FXAMLHttpRequest();
+                updateFlightRequest.onreadystatechange = function() {
+                    if (updateFlightRequest.readyState === 4 && updateFlightRequest.status === 200) {
+                        console.log(updateFlightRequest.responseText);                            
+                    }
+                }
+                updateFlightRequest.open("PUT", `/data/FL1/seats`);
+                updateFlightRequest.send(JSON.stringify(flightSeats));
+            }
+        });
+    });
 }
 
-function createPlane(planeData) {
+function createPlane(planeData, userData) {
     const flightSrc = document.getElementById("flight-src");
     const flightDest = document.getElementById("flight-dest");
     const flightDeparture = document.getElementById("flight-departure");
@@ -77,7 +110,14 @@ function createPlane(planeData) {
 
     //console.log("Data: ", JSON.parse(planeData));
     //console.log("Seats: ", JSON.parse(planeData).occupiedSeats);
-    const seatMap = createSeats(planeData.numCols, planeData.numRows, planeData.occupiedSeats);
+
+    console.log(userData.flights);
+    
+    const userSeats = userData.flights.find(flight => flight.id === planeData.id)?.seats;
+    //console.log(userData.flights[0].seats);
+    console.log("userSeats: ", userSeats);
+    
+    const seatMap = createSeats(planeData.numCols, planeData.numRows, planeData?.occupiedSeats, userSeats);
 
     plane.innerHTML = '';
 
@@ -128,7 +168,7 @@ function createRows(numRows) {
     return rowLabels;
 }
 
-function createSeats(numCols, numRows, seats) {
+function createSeats(numCols, numRows, occupiedSeats, userSeats) {
     const seatMap = document.createElement('div');
     seatMap.id = 'seat-map';
     seatMap.style.gridTemplateColumns = `repeat(${numCols}, 40px)`;
@@ -140,10 +180,10 @@ function createSeats(numCols, numRows, seats) {
             seat.classList.add('seat');
             seat.setAttribute('data-seat', `${i + 1}${String.fromCharCode(('A'.charCodeAt(0) + j))}`);
 
-            
-            if (seats.includes(seat.getAttribute('data-seat'))) {
-                console.log("Seat is occupied!");
-                
+            if (userSeats?.includes(seat.getAttribute('data-seat'))) {
+                seat.classList.add('selected');
+            }
+            else if (occupiedSeats?.includes(seat.getAttribute('data-seat'))) {
                 seat.classList.add('occupied');
             }
 

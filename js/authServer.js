@@ -78,12 +78,14 @@ class AuthServer {
 
         if (info === "flights") {
             const updateFlight = JSON.parse(request.data);
-            const userFlights = JSON.parse(userInfo.flights);
+            const userFlights = userInfo.flights;
             const updatedUserFlights = [];
             let isUpdated = false;
             
             for (let flight of userFlights) {
                 console.log("flight: ", flight);
+                console.log("updateFlight: ", updateFlight);
+                
                 
                 if (flight.id === updateFlight.id) {
                     updatedUserFlights.push(updateFlight);
@@ -95,7 +97,7 @@ class AuthServer {
             }
             if (!isUpdated) updatedUserFlights.push(updateFlight);
 
-            userInfo.flights = JSON.stringify(updatedUserFlights);
+            userInfo.flights = updatedUserFlights;
             console.log("Updated userInfo: ", userInfo);
             
             this.userDB.dbUpdateUser(username, userInfo);

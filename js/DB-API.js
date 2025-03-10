@@ -7,7 +7,7 @@ class User {
         this._username = username;
         this._password = password;
         this._email = email;
-        this.flights = JSON.stringify([]);
+        this.flights = [];
     }
 
     //get id() { return this._id; }
@@ -202,7 +202,7 @@ class FlightDBAPI {
             const numRows = Math.floor(Math.random() * 20) + 10;
             const numCols = Math.floor(Math.random() * 6) + 4;
             const timeDepart = new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString();
-            const timeArrival = new Date(Date.now() + Math.floor(Math.random() * 1000000000) + 10000000).toISOString();
+            const timeArrival = new Date(new Date(timeDepart).getTime() + Math.floor(Math.random() * 10000000) + 3600000).toISOString(); // Ensure arrival is at least 1 hour after departure
     
             this.dbCreateFlight(id, src, dest, numRows, numCols, timeDepart, timeArrival);
         }
