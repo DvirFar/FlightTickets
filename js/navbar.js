@@ -18,8 +18,13 @@ function initializeNavbar() {
         navbarClick("login-template");
     }
 
+    function handleApp() {
+        sessionStorage.removeItem('currentFlight');
+        navbarClick("dashboard-template");
+    }
+
     userProfile.addEventListener('click', navbarClick.bind(this, 'user-info-template'));
     logoutButton.addEventListener('click', handleLogout);
-    appIcon.addEventListener('click', navbarClick.bind(this, 'dashboard-template'));
+    appIcon.addEventListener('click', handleApp);
     userHello.textContent = `Hello, ${sessionStorage.getItem('username')}`;
 }

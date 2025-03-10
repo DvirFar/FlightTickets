@@ -88,8 +88,8 @@
             </div>
         </div>
         <script>
-            const flightDB = new FlightDBAPI();
-            flightDB.generateFlights();
+            //const flightDB = new FlightDBAPI();
+            //flightDB.generateFlights();
 
             if (sessionStorage.getItem('loggedIn')) showContent("dashboard-template");
             else initializeSignup();
@@ -114,7 +114,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL1">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -137,7 +137,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL2">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -160,7 +160,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL3">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -183,7 +183,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL4">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -206,7 +206,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL5">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -229,7 +229,7 @@
                         </div>
                         <div class="flight-type"><span>Direct</span></div>
                     </div>
-                    <button class="flight-pricing">
+                    <button class="flight-pricing" flight-id="FL6">
                         <span>Choose Seats</span>
                         <div class="flight-price-button">
                             <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="1rem" height="1rem" class="arrow-icon">
@@ -263,13 +263,6 @@
                     <span id="flight-departure"></span>
                     <span>, Lands: <span class="loader loader-small"></span></span>
                     <span id="flight-arrival"></span>
-                </div>
-                <div id="other-details">
-                    <span id="flight-travelers">3 adults, 2 children</span>
-                    <span> • </span>
-                    <span id="flight-type">Roundtrip</span>
-                    <span> • </span>
-                    <span id="flight-class">Economy</span>
                 </div>
             </section>
             <section id="seat-selection">

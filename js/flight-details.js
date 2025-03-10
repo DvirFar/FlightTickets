@@ -1,5 +1,7 @@
 
 function initializeFlightDetails () {
+    const currentFlightID = sessionStorage.getItem('currentFlight');
+
     function makeRequests(finalCallback) {
         let responses = 0;
         let results = {};
@@ -20,7 +22,7 @@ function initializeFlightDetails () {
                 handleResponse("flightRequest", flightRequest.responseText);
             }
         };
-        flightRequest.open('GET', '/data?flID=FL1');
+        flightRequest.open('GET', `/data?flID=${currentFlightID}`);
         flightRequest.send('');
 
         const userRequest = new FXAMLHttpRequest();
@@ -31,7 +33,7 @@ function initializeFlightDetails () {
                 removeIconnsLoading();
             }
         };
-        userRequest.open('GET', `/users/${sessionStorage.getItem('username')}/flights?flID=FL1`);
+        userRequest.open('GET', `/users/${sessionStorage.getItem('username')}/flights?flID=${currentFlightID}`);
         userRequest.send();
     }
 
@@ -89,7 +91,7 @@ function initializeFlightDetails () {
                         console.log(updateFlightRequest.responseText);                            
                     }
                 }
-                updateFlightRequest.open("PUT", `/data/FL1/seats`);
+                updateFlightRequest.open("PUT", `/data/${currentFlightID}/seats`);
                 updateFlightRequest.send(JSON.stringify(flightSeats));
             }
         });
