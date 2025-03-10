@@ -38,13 +38,14 @@
     }
 
     .loader {
-        display: none;
-        width: 20px;
-        height: 20px;
+        display: inline-block;
+        width: 12px; /* Plus petit que l'icône de bouton */
+        height: 12px;
         border: 2px solid white;
         border-top: 2px solid transparent;
         border-radius: 50%;
-        animation: spin 5s linear infinite;
+        margin-left: 5px; /* Espacement */
+        animation: spin 1.5s linear infinite; /* Tourne en continu */
     }
 
    /* Adjust the button to center it well */
@@ -52,7 +53,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative; /* Needed to center .loader */
+        position: relative;
     }
     
     @keyframes spin {
