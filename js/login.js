@@ -162,22 +162,33 @@ function login(event) {
         return;
     }
     
-    const user = dbGetUser(username);
-    console.log(user);
-    if (user?.username === username) {
-        if (user.password == customHash(password)){
-            loggedIn(username);
-            return;
+    //const user = dbGetUser(username);
+    const request = new FXAMLHttpRequest();
+    
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            console.log("✅ Réponse reçue :", request.responseText);
+
+            const user = JSON.parse(request.responseText);
+            console.log(user);
+            if (user?.username === username) {
+                if (user.password == customHash(password)){
+                    loggedIn(username);
+                    return;
+                }
+                else {
+                    attempts++;
+                    nonVal(not_valid,  `Username and password don't match, ${allowedAttempts-attempts} attempts left`);
+                    setCookie('loginAttempts', attempts, 30);
+                    return;
+                }
+            }
+            nonVal(not_valid, "Username doesn't exist");
         }
-        else {
-            attempts++;
-            nonVal(not_valid,  `Username and password don't match, ${allowedAttempts-attempts} attempts left`);
-            setCookie('loginAttempts', attempts, 30);
-            return;
-        }
-    }
-    nonVal(not_valid, "Username doesn't exist");
-    return;
+    };
+    
+    request.open("GET", `/users/${username}`); 
+    request.send('');
 }
 
 // function to get a cookie value by name

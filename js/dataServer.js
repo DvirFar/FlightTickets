@@ -52,7 +52,7 @@ class DataServer {
         if (info === "seats") {
             const data = JSON.parse(request.data);
             const occupied = flight.occupiedSeats;
-            const combinedSeats = JSON.parse(data.seats).concat(occupied);
+            const combinedSeats = [...new Set([...JSON.parse(data.seats), ...occupied])];
 
             flight.occupiedSeats = combinedSeats;
             console.log("Updates flight: ", flight);

@@ -3,6 +3,8 @@ class AuthServer {
 
     handle(request) {
         switch (request.method) { // for example -> request = {body: "{\"username\":\"yehuda\",\"password\":\"123456\"}" method: "POST" url: "/login"}
+            case "GET":
+                return this.handleLogin(request);
             case "POST":
                 return this.handleSignup(request);
             case "PUT":
@@ -10,6 +12,25 @@ class AuthServer {
             default:
                 return { status: 400, response: "Invalid Auth Request" };
         }   
+    }
+
+    handleLogin(request) {
+        let _, username;
+        [ _, _, username ] = request.url.split("/");
+
+        const userInfo = this.userDB.dbGetUser(username);
+        if (!userInfo) {
+            return {
+                status: 404,
+                responseText: JSON.stringify("User doesn't exist")
+            }
+        }
+        else {
+            return {
+                status: 200,
+                responseText: JSON.stringify(userInfo)
+            }
+        }
     }
 
     handleSignup(request) {
