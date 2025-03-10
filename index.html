@@ -88,9 +88,6 @@
             </div>
         </div>
         <script>
-            //const flightDB = new FlightDBAPI();
-            //flightDB.generateFlights();
-
             if (sessionStorage.getItem('loggedIn')) showContent("dashboard-template");
             else initializeSignup();
         </script>
@@ -280,7 +277,7 @@
                 
                     <button id="confirm-selection" class="btn">
                         <span class="btn-text">Confirm Selection</span>
-                        <span class="loader"></span>
+                        <span class="loader" id="confirm-loader"></span>
                     </button>
                     
 

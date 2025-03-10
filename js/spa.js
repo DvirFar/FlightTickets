@@ -16,5 +16,3 @@ function showContent(page, info=null) {
 }
 
 showContent("signup-template");
-//showContent("dashboard-template");
-//showContent('flight-details-template');

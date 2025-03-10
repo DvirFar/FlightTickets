@@ -39,9 +39,9 @@ function initializeFlightDetails () {
 
     // fonction pour enlever les icones de chargement
     function removeIconnsLoading() {
-        document.querySelectorAll(".loader-small").forEach(loader => {
+        document.querySelectorAll(".loader").forEach(loader => {
         loader.style.display = "none";
-    });
+        });
     }
 
     makeRequests(function (results) {
@@ -74,7 +74,7 @@ function initializeFlightDetails () {
                 }
 
                 // call a function that displays a loading on the button
-                showLoadingOnButton(document.getElementById('confirm-selection'));
+                showLoadingOnButton(document.getElementById('confirm-loader'));
 
                 // Update users server
                 const updateUserRequest = new FXAMLHttpRequest();
@@ -103,11 +103,12 @@ function initializeFlightDetails () {
 
     // function to show loading on button
     function showLoadingOnButton(button) {
-    let btn = button;
+        let btn = button;
     
-    // Add class for loading animation
-    btn.classList.add("loading");
-}
+        // Add class for loading animation
+        btn.classList.add("loading");
+        btn.style.display = "block";
+    }
 }
 
 function createPlane(planeData, userData) {
@@ -131,13 +132,9 @@ function createPlane(planeData, userData) {
     const rowLabelsRight = createRows(planeData.numRows);
     rowLabelsRight.classList.add('right');
 
-    //console.log("Data: ", JSON.parse(planeData));
-    //console.log("Seats: ", JSON.parse(planeData).occupiedSeats);
-
     console.log(userData.flights);
     
     const userSeats = userData.flights.find(flight => flight.id === planeData.id)?.seats;
-    //console.log(userData.flights[0].seats);
     console.log("userSeats: ", userSeats);
     
     const seatMap = createSeats(planeData.numCols, planeData.numRows, planeData?.occupiedSeats, userSeats);

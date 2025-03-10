@@ -1,16 +1,12 @@
 class User {
-    //static idCount = 0;
 
     constructor(username, password, email) {
-        //this._id = User.idCount++;
-        //console.log(this._id);
         this._username = username;
         this._password = password;
         this._email = email;
         this.flights = [];
     }
-
-    //get id() { return this._id; }
+    
     get username() { return this._username; }
     get password() { return this._password; }
     get email() { return this._email; }

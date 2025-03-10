@@ -45,5 +45,4 @@ class Network {
             // D'autres routes (ex: login) pourraient être ajoutées ici...
         });        
     }
-
-    }
+}
