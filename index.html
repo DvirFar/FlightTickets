@@ -55,7 +55,10 @@
                     <input type="text" id="usernameL" name="username" placeholder="username" autocomplete="name" required>
                     <p class="not_valid" id="not_validL"></p>
                     <input type="password" id="passwordL" name="password" placeholder="password" autocomplete="current-password" required>
-                    <input type="submit" value="Login">
+                    <button id="loginBtn" class="btn">
+                        <span class="btn-text">Login</span>
+                        <span class="loader"></span>
+                    </button>
                 </form>
                 <h3>Don't have an account? <span id="SwitchToSign">Sign-up</span> now!</h3>
             </div>
@@ -76,7 +79,10 @@
                     <p class="not_valid" id="not_valid_emailS"></p>
                     <input type="password" id="passwordS" name="password" value="P^assw0rd" placeholder="password" autocomplete="current-password" required>
                     <p class="not_valid" id="not_valid_passwordS"></p>
-                    <input type="submit" value="Sign-up">
+                    <button id="signupBtn" class="btn">
+                        <span class="btn-text">Sign-up</span>
+                        <span class="loader"></span>
+                    </button>
                 </form>
                 <h3>Have an account? <span id="SwitchToLog">Log-in</span> now!</h3> 
             </div>

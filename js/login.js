@@ -120,12 +120,15 @@ function signup(event) {
         return;
     }
 
-    //createUser(username, customHash(password), email);
+    // call a function that displays a loading on the button
+    showLoadingOnButton(document.getElementById('signupBtn'));
+
     const request = new FXAMLHttpRequest();
     
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
             console.log("✅ Réponse reçue :", request.responseText);
+            loggedIn(username);
         }
     };
     
@@ -138,8 +141,6 @@ function signup(event) {
         password: customHash(password) 
     });
     request.send(data);
-    
-    loggedIn(username);
 }
 
 // login function
@@ -162,7 +163,9 @@ function login(event) {
         return;
     }
     
-    //const user = dbGetUser(username);
+    // call a function that displays a loading on the button
+    showLoadingOnButton(document.getElementById('loginBtn'));
+    
     const request = new FXAMLHttpRequest();
     
     request.onreadystatechange = function () {
@@ -189,6 +192,14 @@ function login(event) {
     
     request.open("GET", `/users/${username}`); 
     request.send('');
+}
+
+// function to show loading on button
+function showLoadingOnButton(button) {
+    let btn = button;
+    
+    // Add class for loading animation
+    btn.classList.add("loading");
 }
 
 // function to get a cookie value by name
