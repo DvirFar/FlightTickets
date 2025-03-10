@@ -23,7 +23,7 @@
         }
     }
 
-    button, input[type=submit] {
+    button {
         background-color: #1F8A70;
         color: #E5E5E5;
         border: none;
@@ -35,6 +35,38 @@
 
     button:hover, input[type=submit]:hover {
         background-color: #3BAF8E;
+    }
+
+    .loader {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid white;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 5s linear infinite;
+    }
+
+   /* Adjust the button to center it well */
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative; /* Needed to center .loader */
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Masquer le texte lors du chargement */
+    .loading .btn-text {
+        display: none;
+    }
+    
+    .loading .loader {
+        display: block;
     }
 
     .login {
