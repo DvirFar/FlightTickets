@@ -2,9 +2,10 @@
     margin-top: 65px;
 
     #general-details {
-        height: 120px;
+        height: 100px;
         background-color: rgb(62, 122, 225);
         padding: 20px;
+        padding-bottom: 0;
     }
 
     #src-dest {
@@ -52,16 +53,6 @@
 
     #plane {
         display: grid;
-        /*grid-template-areas:". col-list col-list col-list col-list col-list col-list col-list ."
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right"
-                            "row-list-left seat-map seat-map seat-map seat-map seat-map seat-map seat-map row-list-right";*/
         align-items: center;
         background: #ffffff;
         padding: 15px;

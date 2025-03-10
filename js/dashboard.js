@@ -1,33 +1,16 @@
-let adults = 1, children = 0;
-
 function initializeDashboard() {
-    adults = 1, children = 0;
-
     const prices = document.body.querySelectorAll('.flight-pricing');
 
-    function clickFlight() {
+    function clickFlight(price) {
+        console.log(price.getAttribute('flight-id'));
         prices.forEach(price => {
-            price.removeEventListener('click', clickFlight);
+            price.removeEventListener('click', clickFlight.bind(this, price));
         });
+        sessionStorage.setItem('currentFlight', price.getAttribute('flight-id'));
         showContent('flight-details-template');
     }
 
     prices.forEach(price => {
-        price.addEventListener('click', clickFlight);
+        price.addEventListener('click', clickFlight.bind(this, price));
     });
-}
-
-function changeCount(type, delta) {
-    if (type === 'adults') {
-        adults = Math.max(1, adults + delta);
-        document.getElementById('adultsCount').textContent = adults;
-    } else {
-        children = Math.max(0, children + delta);
-        document.getElementById('childrenCount').textContent = children;
-    }
-    updateTravelerText();
-}
-
-function updateTravelerText() {
-    document.getElementById('travelerBtn').textContent = `${adults} Adult${adults > 1 ? 's' : ''}, ${children} Child${children > 1 ? 'ren' : ''}`;
 }
