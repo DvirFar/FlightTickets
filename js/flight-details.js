@@ -27,10 +27,19 @@ function initializeFlightDetails () {
         userRequest.onreadystatechange = function() {
             if (userRequest.readyState === 4 && userRequest.status === 200) {
                 handleResponse("userRequest", userRequest.responseText);
+                //appel de la fonction pour enlever les icones de chargement
+                removeIconnsLoading();
             }
         };
         userRequest.open('GET', `/users/${sessionStorage.getItem('username')}/flights?flID=FL1`);
         userRequest.send();
+    }
+
+    // fonction pour enlever les icones de chargement
+    function removeIconnsLoading() {
+        document.querySelectorAll(".loader-small").forEach(loader => {
+        loader.style.display = "none";
+    });
     }
 
     makeRequests(function (results) {

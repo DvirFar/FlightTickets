@@ -88,8 +88,8 @@
             </div>
         </div>
         <script>
-            //const flightDB = new FlightDBAPI();
-            //flightDB.generateFlights();
+            const flightDB = new FlightDBAPI();
+            flightDB.generateFlights();
 
             if (sessionStorage.getItem('loggedIn')) showContent("dashboard-template");
             else initializeSignup();
@@ -282,61 +282,12 @@
                     </button>
                 </div>
             </section>
-            <!--<section id="search-flights">
-                <form id="search-form">
-                    <div class="search-container">
-                        <input type="text" id="from" placeholder="From (City or Airport)" autocomplete="off">
-                        <input type="text" id="to" placeholder="To (City or Airport)" autocomplete="off">
-                        <input type="date" id="departure" placeholder="Departure Date">
-                        <input type="date" id="return" placeholder="Return Date">
-                        <div class="dropdown">
-                            <button type="button" id="travelerBtn">1 Adult, Economy</button>
-                            <div class="dropdown-content">
-                                <div id="dropdown-adults">
-                                    <label>Adults</label>
-                                    <button type="button" onclick="changeCount('adults', -1)">-</button>
-                                    <span id="adultsCount">1</span>
-                                    <button type="button" onclick="changeCount('adults', 1)">+</button>
-                                </div>
-                                <div id="dropdown-children">
-                                    <label>Children</label>
-                                    <button type="button" onclick="changeCount('children', -1)">-</button>
-                                    <span id="childrenCount">0</span>
-                                    <button type="button" onclick="changeCount('children', 1)">+</button>
-                                </div>
-                                <div id="dropdown-class">
-                                    <label>Class</label>
-                                    <select id="cabinClass">
-                                        <option>Economy</option>
-                                        <option>Business</option>
-                                        <option>First Class</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit">Search</button>
-                    </div>
-                </form>
-
-                <div class="search-results">
-                    div
-                </div>
-            </section>-->
         </div>
 
         <script>
             initializeDashboard();
         </script>
 
-        <!--<script>
-            logoutButton = document.body.querySelector('#logout');
-            function clickLogout() {
-                logoutButton.removeEventListener('click', clickLogout);
-                showContent(0);
-            }
-            logoutButton.addEventListener('click', clickLogout);
-            startGame();
-        </script>-->
     </template>
 
     <template id="flight-details-template">
@@ -344,13 +295,16 @@
             <section id="general-details">
                 <div id="src-dest">
                     <span id="flight-src"></span>
+                    <span class="loader loader-small"></span>
                     <span>to</span>
+                    <span class="loader loader-small"></span>
                     <span id="flight-dest"></span>
                 </div>
                 <div id="dates">
                     <span>Departs: </span>
+                    <span class="loader loader-small"></span>
                     <span id="flight-departure"></span>
-                    <span>, Lands: </span>
+                    <span>, Lands: <span class="loader loader-small"></span></span>
                     <span id="flight-arrival"></span>
                 </div>
                 <div id="other-details">
@@ -365,6 +319,7 @@
                 <div id="plane-container">
                     <div id="plane-title">
                         <span>Flight ID.</span>
+                        <span class="loader loader-small"></span>
                         <span id="flight-id"></span>
                         <span>: Seat Selection</span>
                     </div>

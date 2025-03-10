@@ -16,6 +16,27 @@
         margin-bottom: 5px;
     }
 
+    .loader-small {
+        display: inline-block;
+        width: 12px; /* Plus petit que l'icône de bouton */
+        height: 12px;
+        border: 2px solid white;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        margin-left: 5px; /* Espacement */
+        animation: spin 1.5s linear infinite; /* Tourne en continu */
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Masquer les loaders après chargement */
+    .loading-complete .loader-small {
+        display: none;
+    }
+
     #plane-container {
         display: flex;
         flex-direction: column;
